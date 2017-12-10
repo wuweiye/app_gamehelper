@@ -60,7 +60,7 @@ public class MainContentFragment extends Fragment {
 
         // 访问assets目录下的文件
        /* String url = Constant.BASEURL+"m";*/
-        String url = "http://m.xzgjf.com";
+        String url = "http://m.xzgjf.com/h5/index.html";
         mWebView.loadUrl(url);
 
         // 设置WebViewClient
