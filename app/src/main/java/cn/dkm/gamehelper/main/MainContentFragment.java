@@ -60,7 +60,7 @@ public class MainContentFragment extends Fragment {
 
         // 访问assets目录下的文件
        /* String url = Constant.BASEURL+"m";*/
-        String url = "http://m.xzgjf.com/h5/index.html";
+        String url = "http://www.baidu.com";
         mWebView.loadUrl(url);
 
         // 设置WebViewClient
@@ -81,7 +81,6 @@ public class MainContentFragment extends Fragment {
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 mProgressBar.setVisibility(View.VISIBLE);
-                Log.d("++++","VISIBLE");
                 super.onPageStarted(view, url, favicon);
             }
 
@@ -89,14 +88,12 @@ public class MainContentFragment extends Fragment {
             @Override
             public void onPageFinished(WebView view, String url) {
                 mProgressBar.setVisibility(View.GONE);
-                Log.d("++++","GONE" + url +"------");
                 super.onPageFinished(view, url);
             }
 
             // WebView加载的所有资源url
             @Override
             public void onLoadResource(WebView view, String url) {
-                Log.d("++++","onLoadResource "+url);
                 super.onLoadResource(view, url);
 
             }
@@ -104,7 +101,6 @@ public class MainContentFragment extends Fragment {
             @Override
             public void onReceivedError(WebView view, int errorCode,
                                         String description, String failingUrl) {
-                Log.d("++++","onReceivedError "+errorCode+ "--"+description);
                 super.onReceivedError(view, errorCode, description, failingUrl);
             }
 
@@ -116,7 +112,6 @@ public class MainContentFragment extends Fragment {
             // 处理javascript中的alert
             public boolean onJsAlert(WebView view, String url, String message,
                                      final JsResult result) {
-                Log.d("++++","onJsAlert "+url+ "--"+result);
                 return super.onJsAlert(view, url, message, result);
             };
 
@@ -124,7 +119,6 @@ public class MainContentFragment extends Fragment {
             // 处理javascript中的confirm
             public boolean onJsConfirm(WebView view, String url,
                                        String message, final JsResult result) {
-                Log.d("++++","onJsConfirm "+url+ "--"+result);
                 return super.onJsConfirm(view, url, message, result);
             };
 
@@ -132,7 +126,6 @@ public class MainContentFragment extends Fragment {
             // 处理javascript中的prompt
             public boolean onJsPrompt(WebView view, String url, String message,
                                       String defaultValue, final JsPromptResult result) {
-                Log.d("++++","onJsPrompt "+url+ "--"+result);
                 return super.onJsPrompt(view, url, message, defaultValue,
                         result);
             };
@@ -141,7 +134,6 @@ public class MainContentFragment extends Fragment {
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
                 mProgressBar.setProgress(newProgress);
-                Log.d("++++","onProgressChanged ");
                 super.onProgressChanged(view, newProgress);
             }
 
@@ -149,7 +141,6 @@ public class MainContentFragment extends Fragment {
             @Override
             public void onReceivedTitle(WebView view, String title) {
 
-                Log.d("++++","onReceivedTitle " +title);
                 super.onReceivedTitle(view, title);
             }
         });

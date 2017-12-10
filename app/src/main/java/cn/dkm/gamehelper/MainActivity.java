@@ -4,9 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.ab.activity.AbActivity;
@@ -20,9 +22,14 @@ import com.ab.util.AbToastUtil;
 import com.ab.view.slidingmenu.SlidingMenu;
 import com.ab.view.titlebar.AbTitleBar;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import cn.dkm.gamehelper.base.BaseFragment;
 import cn.dkm.gamehelper.dao.UserDao;
+import cn.dkm.gamehelper.fragment.AcrticleFragment;
+import cn.dkm.gamehelper.fragment.MessageFragment;
+import cn.dkm.gamehelper.fragment.MoodNotesFragment;
 import cn.dkm.gamehelper.global.MyApplication;
 import cn.dkm.gamehelper.login.AboutActivity;
 import cn.dkm.gamehelper.login.LoginActivity;
@@ -34,12 +41,11 @@ import cn.dkm.gamehelper.model.User;
 public class MainActivity extends AbActivity {
 
     private SlidingMenu menu;
-
-
-    private MyApplication application;
     private AbTitleBar mAbTitleBar = null;
     private MainMenuFragment mMainMenuFragment = null;
     private MainContentFragment mMainContentFragment = null;
+    private ArrayList fragments;
+    private Fragment tempFragemnt;
 
     // 数据库操作类
     public AbSqliteStorage mAbSqliteStorage = null;
@@ -49,6 +55,9 @@ public class MainActivity extends AbActivity {
     public final int FRIEND_CODE = 1;
     public final int CHAT_CODE = 2;
     private Boolean isExit = false;
+    private RadioGroup mRadioGroup;
+
+    private int position = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,8 +77,8 @@ public class MainActivity extends AbActivity {
 
         mMainContentFragment = new MainContentFragment();
         // 主视图的Fragment添加
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.content_frame, mMainContentFragment).commit();
+        /*getSupportFragmentManager().beginTransaction()
+                .replace(R.id.content_frame, mMainContentFragment).commit();*/
 
         mMainMenuFragment = new MainMenuFragment();
 
@@ -104,31 +113,102 @@ public class MainActivity extends AbActivity {
 
         initTitleRightLayout();
 
-        // 初始化AbSqliteStorage
+        /*// 初始化AbSqliteStorage
         mAbSqliteStorage = AbSqliteStorage.getInstance(this);
         // 初始化数据库操作实现类
-        mUserDao = new UserDao(this);
+        mUserDao = new UserDao(this);*/
 
-        /*if(application.mUser!=null){
-            // 自动登录
-            checkLogin(application.mUser);
-        }*/
-
-        /*msp = Zhao.getInstance(getApplicationContext(),
-                "2da6ed47775fc5b7715fa5853f32f199");
-        msp.setLa(getApplicationContext());
-        msp.load(getApplicationContext());
-
-        list = Kfb.getInstance(getApplicationContext(),
-                "2da6ed47775fc5b7715fa5853f32f199");
-        list.setThemeStyle(getApplicationContext(), 3);
-        list.init(getApplicationContext());*/
-
-        /*showChaping();*/
+        initFragment();
+        initRadio();
 
 
     }
 
+    private void initFragment() {
+
+        fragments = new ArrayList<>();
+        fragments.add(mMainContentFragment);
+        fragments.add(new AcrticleFragment());
+        fragments.add(new MoodNotesFragment());
+        fragments.add(new MessageFragment());
+        fragments.add(new MessageFragment());
+    }
+
+    private void initRadio() {
+
+        mRadioGroup = findViewById(R.id.rg_main);
+
+
+        mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
+
+                switch (checkedId){
+                    case R.id.rb_home:
+                        position = 0;
+                        break;
+                    case R.id.rb_type:
+                        position = 1;
+                        break;
+                    case R.id.rb_community:
+                        position = 2;
+                        break;
+                    case R.id.rb_cart:
+                        position = 3;
+                        break;
+                    case R.id.rb_user:
+                        position = 4;
+                        break;
+                }
+
+                Log.d("====",position +"------");
+                //根据位置取不同的Fragment
+                Fragment baseFragment = getFragment(position);
+                switchFragment(tempFragemnt, baseFragment);
+            }
+        });
+        mRadioGroup.check(R.id.rb_home);
+
+    }
+
+    private void switchFragment(Fragment fromFragment, Fragment nextFragment) {
+
+        if (tempFragemnt != nextFragment) {
+            tempFragemnt = nextFragment;
+            if (nextFragment != null) {
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                //判断nextFragment是否添加
+                if (!nextFragment.isAdded()) {
+                    //隐藏当前Fragment
+                    if (fromFragment != null) {
+                        transaction.hide(fromFragment);
+                    }
+                    //添加Fragment
+                    transaction.add(R.id.content_frame, nextFragment).commit();
+                } else {
+                    //隐藏当前Fragment
+                    if (fromFragment != null) {
+                        transaction.hide(fromFragment);
+                    }
+                    transaction.show(nextFragment).commit();
+                }
+
+
+            }
+        }
+    }
+
+
+    private Fragment getFragment(int position) {
+
+        if (fragments != null && fragments.size() > 0) {
+            Fragment baseFragment = (Fragment) fragments.get(position);
+            return baseFragment;
+        }
+        return null;
+
+
+    }
 
     /**
      * 描述：返回.
@@ -200,20 +280,17 @@ public class MainActivity extends AbActivity {
     /**
      * 描述：启动IM服务
      */
-   /* public void startIMService(){
+    public void startIMService(){
         Log.d("TAG", "----启动IM服务----");
-        IMUtil.startIMService(this);
-    }*/
+    }
 
 
     /**
      * 描述：关闭IM服务
      */
-    /*public void stopIMService(){
+    public void stopIMService(){
         Log.d("TAG", "----关闭IM服务----");
-        IMUtil.logoutIM();
-        IMUtil.stopIMService(this);
-    }*/
+    }
 
 
     @Override
@@ -228,18 +305,18 @@ public class MainActivity extends AbActivity {
         switch (requestCode) {
             case LOGIN_CODE :
                 //登录成功后启动IM服务
-                /*startIMService();*/
+                startIMService();
                 break;
             case CHAT_CODE :
                 //进入会话窗口
                 String userName = intent.getStringExtra("USERNAME");
-                /*toChat(userName);*/
+                toChat(userName);
                 break;
             case FRIEND_CODE :
                 //登录成功后启动IM服务
                 /*startIMService();*/
                 //进入联系人
-               /* toContact();*/
+                toContact();
                 break;
         }
 
@@ -258,53 +335,6 @@ public class MainActivity extends AbActivity {
         }
     }
 
-    /**
-     * 登录IM
-     *
-     * */
-    /*public void loginIMTask(final User user){
-        if(IMUtil.isLogin()){
-            return;
-        }
-        AbDialogUtil.showProgressDialog(MainActivity.this,R.drawable.ic_load,"登录到IM");
-        AbTask task = new AbTask();
-        final AbTaskItem item = new AbTaskItem();
-        item.setListener(new AbTaskObjectListener(){
-
-            @Override
-            public <T> void update(T entity) {
-                AbDialogUtil.removeDialog(MainActivity.this);
-                Log.d("TAG", "登录执行完成");
-                int code = (Integer)entity;
-                if(code == IMUtil.SUCCESS_CODE || code == IMUtil.LOGGED_CODE){
-                    AbToastUtil.showToast(MainActivity.this,"IM登录成功");
-                    //启动IM服务
-                    startIMService();
-                    //要跳转到哪里
-                    toByIntent(getIntent());
-                }else if(code == IMUtil.FAIL_CODE){
-                    AbToastUtil.showToast(MainActivity.this,"IM登录失败");
-                }
-
-            }
-
-            @SuppressWarnings("unchecked")
-            @Override
-            public Integer getObject() {
-                int code = IMUtil.FAIL_CODE;
-                try{
-                    //设置用户名与密码
-                    code = IMUtil.loginIM(user.getUserName(),user.getPassword());
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                return code;
-            }
-
-        });
-
-        task.execute(item);
-    }*/
 
     private void initTitleRightLayout() {
 
@@ -358,24 +388,18 @@ public class MainActivity extends AbActivity {
     public void toContact(){
         //进入联系人
         Toast.makeText(getApplicationContext(),"进入联系人",Toast.LENGTH_LONG);
-       /* Intent friendIntent = new Intent(MainActivity.this,
-                ContacterActivity.class);
-        startActivity(friendIntent);*/
     }
 
     @Override
     protected void onPause() {
         initTitleRightLayout();
         AbLogUtil.d(this, "--onPause--");
-        //AbMonitorUtil.closeMonitor();
         super.onPause();
     }
 
     @Override
     protected void onResume() {
         AbLogUtil.d(this, "--onResume--");
-        //如果debug模式被打开，显示监控
-        //AbMonitorUtil.openMonitor(this);
         super.onResume();
     }
 

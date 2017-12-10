@@ -1,6 +1,7 @@
 package cn.dkm.gamehelper.main;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,7 +15,9 @@ import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.ab.fragment.AbAlertDialogFragment;
 import com.ab.image.AbImageCache;
 import com.ab.image.AbImageLoader;
 import com.ab.model.AbMenuItem;
@@ -62,7 +65,6 @@ public class MainMenuFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         mActivity = (MainActivity) this.getActivity();
-        /*application = (MyApplication) mActivity.getApplication();*/
 
         View view = inflater.inflate(R.layout.main_menu, null);
         mMenuListView =  view.findViewById(R.id.menu_list);
@@ -168,15 +170,18 @@ public class MainMenuFragment extends Fragment{
         m0.setText("联系人");
         mChild1.add(m0);
 
-        AbMenuItem m1 = new AbMenuItem();
-        m1.setIconId(R.drawable.square);
-        m1.setText("我的消息");
-        mChild1.add(m1);
 
         AbMenuItem m3 = new AbMenuItem();
         m3.setIconId(R.drawable.share);
         m3.setText("程序案例");
         mChild1.add(m3);
+
+        AbMenuItem m1 = new AbMenuItem();
+        m1.setIconId(R.drawable.square);
+        m1.setText("我的消息");
+        mChild1.add(m1);
+
+
 
         AbMenuItem m4 = new AbMenuItem();
         m4.setIconId(R.drawable.app);
@@ -250,6 +255,95 @@ public class MainMenuFragment extends Fragment{
                 }
             });
         }
+
+       /* final String shareStr = this.getResources().getString(
+                R.string.share_desc);*/
+
+       setOnChangeViewListener(new OnChangeViewListener() {
+           @Override
+           public void onChangeView(int groupPosition, int childPosition) {
+               if (groupPosition == 0) {
+                   if (childPosition == 0) {
+                       Toast.makeText(getContext(),"联系人",Toast.LENGTH_LONG).show();
+                       // 联系人
+                       /*if (application.mUser == null) {
+                           mActivity.toLogin(mActivity.FRIEND_CODE);
+                       } else {
+
+                           Toast.makeText(getContext(),"ContacterActivity",Toast.LENGTH_LONG).show();
+                          *//* Intent intent = new Intent(mActivity,
+                                   ContacterActivity.class);
+                           mActivity.startActivity(intent);*//*
+                       }*/
+                   } else if (childPosition == 1) {
+                       // 我的消息
+                       Toast.makeText(getContext(),"我的消息",Toast.LENGTH_LONG).show();
+                       /*Intent intent = new Intent(mActivity,
+                               MessageActivity.class);
+                       startActivity(intent);*/
+                   } else if (childPosition == 2) {
+                       // 程序案例
+                       Toast.makeText(getContext(),"程序案例",Toast.LENGTH_LONG).show();
+                       /*Intent intent = new Intent(mActivity,
+                               DemoMainActivity.class);
+                       startActivity(intent);*/
+                   } else if (childPosition == 3) {
+                       // 应用游戏
+                       Toast.makeText(getContext(),"应用游戏",Toast.LENGTH_LONG).show();
+                      /* mActivity.showApp();*/
+                   }
+               }else if (groupPosition == 1) {
+                   if (childPosition == 0) {
+                       // 选项、赞助作者
+                       Toast.makeText(getContext(),"赞助作者",Toast.LENGTH_LONG).show();
+                     /*  mActivity.showApp();*/
+                   } else if (childPosition == 1) {
+                       // 推荐
+
+                       Toast.makeText(getContext(),"推荐",Toast.LENGTH_LONG).show();
+                   } else if (childPosition == 2) {
+                       if (mUser != null) {
+                           AbDialogUtil.showAlertDialog(mActivity, "注销",
+                                   "确定要注销该用户吗?",
+                                   new AbAlertDialogFragment.AbDialogOnClickListener() {
+
+                                       @Override
+                                       public void onPositiveClick() {
+                                           // 注销
+                                           application.clearLoginParams();
+                                           initMenu();
+                                           mActivity.stopIMService();
+                                       }
+
+                                       @Override
+                                       public void onNegativeClick() {
+                                           // TODO Auto-generated method stub
+
+                                       }
+
+                                   });
+
+                       } else {
+                           // 关于
+                           Toast.makeText(getContext(),"关于",Toast.LENGTH_LONG).show();
+                          /* Intent intent = new Intent(mActivity,
+                                   AboutActivity.class);
+                           startActivity(intent);*/
+                       }
+                   } else if (childPosition == 3) {
+                       if (application.mUser != null) {
+                           Toast.makeText(getContext(),"关于",Toast.LENGTH_LONG).show();
+                           // 关于
+                         /*  Intent intent = new Intent(mActivity,
+                                   AboutActivity.class);
+                           startActivity(intent);*/
+                       } else {
+                           // 无
+                       }
+                   }
+               }
+           }
+       });
     }
 
     public interface OnChangeViewListener {

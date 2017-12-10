@@ -1,6 +1,7 @@
 package cn.dkm.gamehelper.main;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -81,7 +82,8 @@ class LeftMenuAdapter extends BaseExpandableListAdapter {
 
     @Override
     public int getChildrenCount(int i) {
-        return mChilds.size();
+
+        return mChilds.get(i).size();
     }
 
     @Override
