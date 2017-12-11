@@ -6,6 +6,9 @@ package cn.dkm.gamehelper.web;
 
 public class UrlConstant {
 
+
+    public static final String BASE = "http://dingkunming.cn";
+
     public static final String ARTICLE = "article";
 
     public static final String DATA = "data";
@@ -14,7 +17,7 @@ public class UrlConstant {
 
     public static final String GAME_LABEL = "game_label";
 
-    public static final String BASE = "localhost:8866";
+
 
     public static final String ARTICLE_URL = BASE + "/game/article/manage/query";
 

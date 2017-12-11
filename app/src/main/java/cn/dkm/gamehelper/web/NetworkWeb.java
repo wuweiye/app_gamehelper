@@ -15,6 +15,7 @@ import com.ab.util.AbJsonUtil;
 
 import cn.dkm.gamehelper.model.Article;
 import cn.dkm.gamehelper.model.ArticleListResult;
+import cn.dkm.gamehelper.web.params.GameArticleParams;
 
 public class NetworkWeb {
 
@@ -77,15 +78,30 @@ public class NetworkWeb {
 	public void findQueryList(AbRequestParams params,String type, final AbHttpListener abHttpListener){
 
 		String url = getUrl(type);
+		Log.d("url",url);
 		mAbHttpUtil.post(url, params, new AbStringHttpResponseListener() {
 			@Override
 			public void onSuccess(int statusCode, String content) {
 
-				AbResult result = new AbResult(content);
-				if (result.getResultCode()>0) {
+				//AbResult result = new AbResult(content);
+
+				Result result = new Result(content);
+
+				Log.d("====","ok");
+				Log.d("====",result.getErrorCode()+":"+result.getErrorMessage());
+
+
+				if (result.getErrorCode()>=0) {
 					//成功
 
 					ArticleListResult mArticleListResult = (ArticleListResult) AbJsonUtil.fromJson(content,ArticleListResult.class);
+
+					List<GameArticleParams> gameArticleParams = mArticleListResult.getRows();
+
+					for (GameArticleParams gameArticleParams1 : gameArticleParams){
+						Log.d("====",gameArticleParams1.getTitle());
+					}
+					//GameArticleParams gameArticleParams = (GameArticleParams) AbJsonUtil.fromJson(content,ArticleListResult.class);
 					/*List<Article> articleList = mArticleListResult.getItems()*/;
 
 					Log.d("====","ok");
