@@ -7,8 +7,15 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
 
+import com.ab.http.AbHttpListener;
+import com.ab.http.AbRequestParams;
+
+import java.util.List;
+
 import cn.dkm.gamehelper.R;
 import cn.dkm.gamehelper.base.BaseFragment;
+import cn.dkm.gamehelper.web.NetworkWeb;
+import cn.dkm.gamehelper.web.UrlConstant;
 
 
 /**
@@ -22,6 +29,25 @@ public class AcrticleFragment extends BaseFragment {
 
     @Override
     public View initView() {
+
+
+        AbRequestParams params = new AbRequestParams();
+
+        String type = UrlConstant.ARTICLE;
+        NetworkWeb networkWeb = NetworkWeb.newInstance(getContext());
+        params.put("page","1");
+        params.put("rows","10");
+        networkWeb.findQueryList(params, type, new AbHttpListener() {
+            @Override
+            public void onFailure(String content) {
+                Log.d("onFailure","over");
+            }
+
+            @Override
+            public void onSuccess(List<?> list) {
+                super.onSuccess(list);
+            }
+        });
 
         textView = new TextView(mContext);
         textView.setTextSize(30);

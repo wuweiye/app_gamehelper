@@ -76,13 +76,9 @@ public class MainActivity extends AbActivity {
         mAbTitleBar.setLogoLine(R.drawable.line);
 
         mMainContentFragment = new MainContentFragment();
-        // 主视图的Fragment添加
-        /*getSupportFragmentManager().beginTransaction()
-                .replace(R.id.content_frame, mMainContentFragment).commit();*/
+
 
         mMainMenuFragment = new MainMenuFragment();
-
-
         // SlidingMenu的配置
         menu = new SlidingMenu(this);
         menu.setMode(SlidingMenu.LEFT);
@@ -350,8 +346,9 @@ public class MainActivity extends AbActivity {
 
             @Override
             public void onClick(View v) {
-                // 应用游戏
-                showApp();
+               /* // 应用游戏
+                showApp();*/
+               Toast.makeText(getApplicationContext(),"one",Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -359,16 +356,17 @@ public class MainActivity extends AbActivity {
 
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,
+               /* Intent intent = new Intent(MainActivity.this,
                         AboutActivity.class);
-                startActivity(intent);
+                startActivity(intent);*/
+                Toast.makeText(getApplicationContext(),"two",Toast.LENGTH_SHORT).show();
             }
 
         });
     }
 
     private void showApp() {
-        Toast.makeText(getApplicationContext(),"showApp",Toast.LENGTH_SHORT);
+        Toast.makeText(getApplicationContext(),"showApp",Toast.LENGTH_SHORT).show();
     }
 
     public void toLogin(int requestCode){
