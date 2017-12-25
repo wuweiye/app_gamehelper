@@ -7,7 +7,12 @@ package cn.dkm.gamehelper.web;
 public class UrlConstant {
 
 
-    public static final String BASE = "http://dingkunming.cn";
+    //public static final String BASE = "http://dingkunming.cn";
+
+    public static final String BASE = "http://192.168.1.107:8866/app/";
+
+
+    public static final String GAMES = "games";
 
     public static final String ARTICLE = "article";
 
@@ -18,6 +23,8 @@ public class UrlConstant {
     public static final String GAME_LABEL = "game_label";
 
 
+
+    public static final String GAMES_URL = BASE + "manage/get/games";
 
     public static final String ARTICLE_URL = BASE + "/game/article/manage/query";
 

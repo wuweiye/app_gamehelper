@@ -3,15 +3,21 @@ package cn.dkm.gamehelper.global;
 
 
 public class Constant {
+
+	public static final String BASE_URL = "localhost:8866/app/";
+	public static final String GAMES = BASE_URL + "get/games";
 	
-	public static final boolean DEBUG = true;
+/*	public static final boolean DEBUG = true;
 	public static final String sharePath = "andbase_share";
     public static final String USERSID = "user";
     //页面默认显示南京，登陆后显示注册用户的城市
     public static final String CITYID = "cityId";
     public static final String CITYNAME = "cityName";
     public static final String DEFAULTCITYID = "1001";
-    public static final String DEFAULTCITYNAME = "南京";
+    public static final String DEFAULTCITYNAME = "南京";*/
+
+	public static final String DEFAULTCITYID = "1001";
+	public static final String DEFAULTCITYNAME = "南京";
     
     //cookies
     public static final String USERNAMECOOKIE = "cookieName";

@@ -16,6 +16,7 @@ import com.ab.view.titlebar.AbTitleBar;
 import java.util.List;
 
 import cn.dkm.gamehelper.R;
+import cn.dkm.gamehelper.global.Constant;
 import cn.dkm.gamehelper.listener.FileResponseListener;
 import cn.dkm.gamehelper.model.Article;
 import cn.dkm.gamehelper.web.NetworkWeb;
@@ -54,7 +55,7 @@ public class TestActivity extends AbActivity {
 
         NetworkWeb networkWeb = NetworkWeb.newInstance(this);
 
-        networkWeb.findLogList(null, new AbHttpListener() {
+        networkWeb.findLogList(null,null, new AbHttpListener() {
             @Override
             public void onFailure(String s) {
 

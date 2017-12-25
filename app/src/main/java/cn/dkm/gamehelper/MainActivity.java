@@ -1,8 +1,10 @@
 package cn.dkm.gamehelper;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
@@ -15,31 +17,34 @@ import com.ab.activity.AbActivity;
 import com.ab.db.storage.AbSqliteStorage;
 import com.ab.db.storage.AbSqliteStorageListener;
 import com.ab.db.storage.AbStorageQuery;
-import com.ab.task.AbTask;
-import com.ab.util.AbDialogUtil;
 import com.ab.util.AbLogUtil;
 import com.ab.util.AbToastUtil;
 import com.ab.view.slidingmenu.SlidingMenu;
 import com.ab.view.titlebar.AbTitleBar;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.dkm.gamehelper.base.BaseFragment;
 import cn.dkm.gamehelper.dao.UserDao;
-import cn.dkm.gamehelper.fragment.AcrticleFragment;
+import cn.dkm.gamehelper.fragment.GamesFragment;
 import cn.dkm.gamehelper.fragment.MessageFragment;
 import cn.dkm.gamehelper.fragment.MoodNotesFragment;
-import cn.dkm.gamehelper.global.MyApplication;
 import cn.dkm.gamehelper.login.AboutActivity;
 import cn.dkm.gamehelper.login.LoginActivity;
 import cn.dkm.gamehelper.main.MainContentFragment;
 import cn.dkm.gamehelper.main.MainMenuFragment;
 import cn.dkm.gamehelper.model.User;
+import cn.dkm.gamehelper.model.params.GameLibrary;
+import cn.dkm.gamehelper.utils.CastUtils;
+
+import static android.content.ContentValues.TAG;
 
 
 public class MainActivity extends AbActivity {
 
+
+    private MainHandler handler;
     private SlidingMenu menu;
     private AbTitleBar mAbTitleBar = null;
     private MainMenuFragment mMainMenuFragment = null;
@@ -63,7 +68,7 @@ public class MainActivity extends AbActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setAbContentView(R.layout.activity_main);
-
+        handler = new MainHandler(this);
 
         //application = (MyApplication) abApplication;
 
@@ -124,7 +129,7 @@ public class MainActivity extends AbActivity {
 
         fragments = new ArrayList<>();
         fragments.add(mMainContentFragment);
-        fragments.add(new AcrticleFragment());
+        fragments.add(new GamesFragment());
         fragments.add(new MoodNotesFragment());
         fragments.add(new MessageFragment());
         fragments.add(new MessageFragment());
@@ -406,4 +411,40 @@ public class MainActivity extends AbActivity {
         super.finish();
 
     }
+
+
+    public class MainHandler extends Handler {
+
+        private WeakReference<MainActivity> mActivity;
+
+
+
+        public MainHandler(MainActivity activity){
+
+            mActivity = new WeakReference<>(activity);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+
+            switch (msg.what){
+                case 1 :
+                    Bundle bundle =  msg.getData();
+                    List<GameLibrary> libraries = CastUtils.cost(bundle.getCharSequenceArrayList("libraries"));
+                    int count = libraries.size();
+
+                    Toast.makeText(getApplicationContext(),"list:"+count,Toast.LENGTH_SHORT).show();
+
+                    break;
+            }
+
+            super.handleMessage(msg);
+        }
+    }
+
+
+    public MainHandler getHandler(){
+        return handler;
+    }
+
 }
