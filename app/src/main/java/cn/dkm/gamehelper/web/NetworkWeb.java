@@ -90,7 +90,7 @@ public class NetworkWeb {
 				if (result.getErrorCode()>=0) {
 
 					BaseListResult baseListResult = (BaseListResult) AbJsonUtil.fromJson(content,BaseListResult.class);
-					List<?> list =  baseListResult.getRows();
+					List<GameLibrary> list = baseListResult.getRows();
 					abHttpListener.onSuccess(list);
 
 				} else {
@@ -116,6 +116,8 @@ public class NetworkWeb {
 				abHttpListener.onFailure(throwable.getMessage());
 			}
 		});
+
+
 
 
 	}

@@ -15,5 +15,5 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class BaseListResult  extends AbResult {
-    private List<?> rows;
+    private List<GameLibrary> rows;
 }

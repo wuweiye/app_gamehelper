@@ -1,5 +1,6 @@
 package cn.dkm.gamehelper.model.params;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

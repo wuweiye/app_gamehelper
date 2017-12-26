@@ -6,6 +6,8 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -13,6 +15,7 @@ import android.widget.TextView;
 
 import com.ab.http.AbHttpListener;
 import com.ab.http.AbRequestParams;
+import com.ab.view.pullview.AbPullToRefreshView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +23,7 @@ import java.util.List;
 import cn.dkm.gamehelper.MainActivity;
 import cn.dkm.gamehelper.MyHandler;
 import cn.dkm.gamehelper.R;
+import cn.dkm.gamehelper.adapter.GamesFragmentAdapter;
 import cn.dkm.gamehelper.base.BaseFragment;
 import cn.dkm.gamehelper.model.params.GameLibrary;
 import cn.dkm.gamehelper.utils.CastUtils;
@@ -35,24 +39,37 @@ public class GamesFragment extends BaseFragment {
     private static final String TAG = GamesFragment.class.getSimpleName();
      private  TextView textView ;
      private Handler mHandler;
+     //private AbPullToRefreshView mAbPullView;
 
+     private RecyclerView recyclerView;
+     private GamesFragmentAdapter adapter;
 
     @SuppressWarnings("unchecked")
     @Override
     public View initView() {
 
-        textView = new TextView(mContext);
-        textView.setTextSize(30);
-        textView.setTextColor(Color.BLUE);
-        textView.setGravity(Gravity.CENTER);
+       View view = View.inflate(mContext,R.layout.fragment_games,null);
+       recyclerView = view.findViewById(R.id.rv_games);
+      /* mAbPullView = view.findViewById(R.id.mPullView);*/
 
-        return textView;
+        initListener();
+        return view;
 
     }
 
     private void initListener() {
 
-        //暂时无监听时间
+/*
+
+        mAbPullView.setOnHeaderRefreshListener(new AbPullToRefreshView.OnHeaderRefreshListener() {
+            @Override
+            public void onHeaderRefresh(AbPullToRefreshView abPullToRefreshView) {
+
+                Log.d(TAG, "onHeaderRefresh: ------------------------------");
+                getDataFromNet();
+            }
+        });
+*/
 
     }
 
@@ -60,7 +77,8 @@ public class GamesFragment extends BaseFragment {
     public void initDate() {
 
         super.initDate();
-        textView.setText("activity Fragment");
+   /*     mAbPullView.getHeaderView().setHeaderProgressBarDrawable(this.getResources().getDrawable(R.drawable.progress_circular));*/
+        //textView.setText("activity Fragment");
         /*super.initDate();
         //textView.setText("activity Fragment");
         Log.e(TAG, "主页数据被初始化了");
@@ -89,7 +107,12 @@ public class GamesFragment extends BaseFragment {
             @Override
             public void onSuccess(List<?> list) {
 
-                List<GameLibrary> libraries = CastUtils.cost( list);
+                List<GameLibrary> libraries = (List<GameLibrary>) list;
+
+                Log.d(TAG, "start: ");
+                Log.d(TAG, "onSuccess: "+libraries.get(0).getContent());
+                processData(libraries);
+
                 /*Message message = Message.obtain();
                 Bundle bundle = new Bundle();
                 bundle.putCharSequenceArrayList("libraries",(ArrayList) libraries);
@@ -97,59 +120,24 @@ public class GamesFragment extends BaseFragment {
                 message.what = 1;
                 mHandler.handleMessage(message);*/
 
-
-
             }
         });
 
-     /*  String url = Constants.HOME_URL;
-        OkHttpUtils
-                .get()
-                .url(url)
-                //.addParams("","")
-                .build()
-                .execute(new StringCallback() {
-
-
-
-                    @Override
-                    public void onError(Call call, Exception e, int id) {
-                        Log.e(TAG,"首页请求失败=="+e.getMessage());
-                    }
-
-                    @Override
-                    public void onResponse(String response, int id) {
-                        Log.e(TAG,"首页请求成功=="+response);
-                        //解析数据
-                        processData(response);
-                    }
-
-
-                });
-*/
     }
 
-    private void processData(String response) {
+    private void processData(List<GameLibrary> libraries) {
 
-       /* ResultBeanData resultBeanData = JSON.parseObject(response,ResultBeanData.class);
-        resultBean = resultBeanData.getAcrticles();
+        if(libraries != null){
 
+            for (GameLibrary library : libraries){
+                Log.d(TAG, "processData: li"+ library.getName());
+            }
+            adapter = new GamesFragmentAdapter(mContext,libraries);
+            recyclerView.setAdapter(adapter);
+            recyclerView.setLayoutManager(new GridLayoutManager(mContext,1));
 
-        if(resultBean != null){
-            //有数据
-            //设置适配器
-                                                                                                                                                      adapter = new AcrticleAdapter(mContext,resultBean);
-            //adapter = new AcrticleFragmentAdapter(mContext,resultBean);
-            rvAcrticle.setAdapter(adapter);
-            rvAcrticle.setLayoutManager(new GridLayoutManager(mContext,1));
-        }else{
-            //无数据
-            Log.e(TAG,"无数据---------==");
         }
 
-        for(ResultBeanData.AcrticlesBean acrticle:resultBean){
-            Log.e(TAG,"解析成功=="+acrticle.getTitle()+"-----"+acrticle.getJointime());
-        }*/
 
 
     }
