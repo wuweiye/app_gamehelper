@@ -1,4 +1,4 @@
-package cn.dkm.gamehelper.dao;
+package cn.dkm.gamehelper.user.dao;
 
 import android.content.Context;
 

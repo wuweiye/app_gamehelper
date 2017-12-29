@@ -1,4 +1,4 @@
-package cn.dkm.gamehelper.fragment;
+package cn.dkm.gamehelper.gameInfo.fragment;
 
 
 import android.graphics.Color;

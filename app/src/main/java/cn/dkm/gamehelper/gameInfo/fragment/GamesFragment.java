@@ -1,32 +1,30 @@
-package cn.dkm.gamehelper.fragment;
+package cn.dkm.gamehelper.gameInfo.fragment;
 
 
 import android.content.Context;
-import android.graphics.Color;
-import android.os.Bundle;
+import android.content.Intent;
 import android.os.Handler;
-import android.os.Message;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ab.http.AbHttpListener;
 import com.ab.http.AbRequestParams;
-import com.ab.view.pullview.AbPullToRefreshView;
+import com.ab.util.AbJsonUtil;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import cn.dkm.gamehelper.MainActivity;
-import cn.dkm.gamehelper.MyHandler;
 import cn.dkm.gamehelper.R;
-import cn.dkm.gamehelper.adapter.GamesFragmentAdapter;
+import cn.dkm.gamehelper.gameInfo.activity.GameDetailActivity;
+import cn.dkm.gamehelper.gameInfo.adapter.GamesFragmentAdapter;
 import cn.dkm.gamehelper.base.BaseFragment;
+import cn.dkm.gamehelper.gameInfo.listener.OnItemClickListener;
+import cn.dkm.gamehelper.model.params.BaseListResult;
 import cn.dkm.gamehelper.model.params.GameLibrary;
-import cn.dkm.gamehelper.utils.CastUtils;
 import cn.dkm.gamehelper.web.NetworkWeb;
 import cn.dkm.gamehelper.web.UrlConstant;
 
@@ -121,20 +119,36 @@ public class GamesFragment extends BaseFragment {
                 mHandler.handleMessage(message);*/
 
             }
+
+            @Override
+            public void onSuccess(String content) {
+                Log.d(TAG, "start: String content");
+                BaseListResult baseListResult = (BaseListResult) AbJsonUtil.fromJson(content,BaseListResult.class);
+                List<GameLibrary> list = baseListResult.getRows();
+                processData(list);
+            }
         });
 
     }
 
-    private void processData(List<GameLibrary> libraries) {
+    private void processData(final List<GameLibrary> libraries) {
 
         if(libraries != null){
 
-            for (GameLibrary library : libraries){
-                Log.d(TAG, "processData: li"+ library.getName());
-            }
             adapter = new GamesFragmentAdapter(mContext,libraries);
             recyclerView.setAdapter(adapter);
             recyclerView.setLayoutManager(new GridLayoutManager(mContext,1));
+
+            adapter.setOnItemClickListener(new OnItemClickListener() {
+                @Override
+                public void onItemClick(View view, int position) {
+                    Intent intent = new Intent();
+                    intent.setClass(mContext, GameDetailActivity.class);
+                    intent.putExtra("gid",libraries.get(position).getGId());
+                    startActivity(intent);
+                }
+            });
+
 
         }
 

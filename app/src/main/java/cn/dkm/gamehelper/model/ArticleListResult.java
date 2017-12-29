@@ -15,4 +15,6 @@ public class ArticleListResult extends AbResult {
 	private List<Article> items;
 
 	private List<GameArticleParams> rows;
+
+
 }

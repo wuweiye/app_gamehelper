@@ -2,27 +2,61 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/iv_icon"
-        android:src="@mipmap/ic_launcher"
-        android:layout_width="100dp"
-        android:layout_height="100dp" />
+
+    <LinearLayout
+        android:layout_width="80dp"
+        android:layout_height="80dp">
+        <ImageView
+            android:id="@+id/iv_icon"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:src="@mipmap/ic_launcher" />
+
+    </LinearLayout>
+
     <LinearLayout
 
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="100dp">
+        android:layout_height="80dp"
+        android:layout_marginLeft="20dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
         <TextView
             android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="name"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:textColor="#ff00ff"
-            android:text="title"
-            android:textSize="18sp"
-            android:gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:textSize="18sp" />
+
         <TextView
+            android:id="@+id/tv_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:text="store"
+            android:textColor="#223452"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tv_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="9999人关注"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textColor="#223452"
+            android:textSize="15sp" />
+
+        <!--<TextView
             android:id="@+id/tv_content"
             android:text="content"
             android:textSize="15sp"
@@ -30,15 +64,29 @@
             android:maxLines="3"
             android:ellipsize="end"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content" />-->
         <TextView
             android:id="@+id/tv_time"
-            android:gravity="right"
-            android:text="time"
-            android:textSize="12sp"
-            android:textColor="#765234"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            />
+            android:text="time"
+            android:textColor="#765234"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_width="80dp"
+        android:layout_height="80dp">
+
+        <TextView
+            android:id="@+id/tv_assent"
+            android:text="评价"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
     </LinearLayout>
 </LinearLayout>

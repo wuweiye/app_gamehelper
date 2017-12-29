@@ -1,7 +1,8 @@
-package cn.dkm.gamehelper.adapter;
+package cn.dkm.gamehelper.gameInfo.adapter;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,8 @@ import android.widget.Toast;
 import java.util.List;
 
 import cn.dkm.gamehelper.R;
+import cn.dkm.gamehelper.gameInfo.activity.GameDetailActivity;
+import cn.dkm.gamehelper.gameInfo.listener.OnItemClickListener;
 import cn.dkm.gamehelper.model.params.GameLibrary;
 
 /**
@@ -22,6 +25,7 @@ public class GamesFragmentAdapter extends RecyclerView.Adapter<GamesFragmentAdap
 
     private final Context mContext;
     private List<GameLibrary> libraries ;
+    private OnItemClickListener mOnItemClickListener;//声明接口
 
     public GamesFragmentAdapter(Context mContext, List<GameLibrary> libraries) {
         this.mContext = mContext;
@@ -37,13 +41,24 @@ public class GamesFragmentAdapter extends RecyclerView.Adapter<GamesFragmentAdap
     }
 
     @Override
-    public void onBindViewHolder(GamesHolder holder, int position) {
+    public void onBindViewHolder(final GamesHolder holder, int position) {
 
         GameLibrary library = libraries.get(position);
         holder.tv_title.setText(library.getName());
-        holder.tv_content.setText(library.getContent());
-        holder.tv_time.setText(library.getGId());
+        //holder.tv_content.setText(library.getContent());
 
+        holder.tv_content.setText("测试文字内容测试文字内容测试文字内容测试文字内容测试文字内容");
+        holder.tv_time.setText(library.getUpdateTime());
+
+        if(mOnItemClickListener != null){
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int position = holder.getLayoutPosition();
+                    mOnItemClickListener.onItemClick(view,position);
+                }
+            });
+        }
     }
 
     @Override
@@ -51,6 +66,9 @@ public class GamesFragmentAdapter extends RecyclerView.Adapter<GamesFragmentAdap
         return libraries.size();
     }
 
+    public String getGid(int position){
+        return libraries.get(position).getGId();
+    }
 
 
     class GamesHolder extends RecyclerView.ViewHolder{
@@ -67,16 +85,10 @@ public class GamesFragmentAdapter extends RecyclerView.Adapter<GamesFragmentAdap
             tv_content =  itemView.findViewById(R.id.tv_content);
             tv_time =  itemView.findViewById(R.id.tv_time);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Toast.makeText(mContext,"content "+libraries.get(getLayoutPosition()).getContent(),Toast.LENGTH_SHORT).show();
-
-
-                }
-            });
-
-
         }
+    }
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        mOnItemClickListener = onItemClickListener;
     }
 }

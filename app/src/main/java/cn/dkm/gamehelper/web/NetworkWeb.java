@@ -91,7 +91,7 @@ public class NetworkWeb {
 
 					BaseListResult baseListResult = (BaseListResult) AbJsonUtil.fromJson(content,BaseListResult.class);
 					List<GameLibrary> list = baseListResult.getRows();
-					abHttpListener.onSuccess(list);
+					abHttpListener.onSuccess(content);
 
 				} else {
 					//将错误信息传递回去
@@ -153,7 +153,7 @@ public class NetworkWeb {
 						if(type.equals("games")){
 							BaseListResult baseListResult = (BaseListResult) AbJsonUtil.fromJson(content,BaseListResult.class);
 							List<GameLibrary> gameLibraries = (List<GameLibrary>) baseListResult.getRows();
-							abHttpListener.onSuccess(gameLibraries);
+							abHttpListener.onSuccess(content);
 
 						}else{
 							Log.d(TAG, "onSuccess: ------ok2---");
@@ -211,5 +211,48 @@ public class NetworkWeb {
 
 		return url;
 	};
-	
+
+	/**
+	 * 根据post请求
+	 * @param params
+	 * @param url
+	 * @param abHttpListener
+	 */
+	public void urlPost(AbRequestParams params, String url, final AbHttpListener abHttpListener) {
+
+
+		mAbHttpUtil.post(url, params, new AbStringHttpResponseListener() {
+			@Override
+			public void onSuccess(int statusCode, String content) {
+
+				Result result = new Result(content);
+				if (result.getErrorCode()>=0) {
+					
+					abHttpListener.onSuccess(content);
+
+				} else {
+					//将错误信息传递回去
+					abHttpListener.onFailure(result.getErrorMessage());
+				}
+
+			}
+
+			@Override
+			public void onStart() {
+
+			}
+
+			@Override
+			public void onFinish() {
+
+			}
+
+			@Override
+			public void onFailure(int statusCode, String s, Throwable throwable) {
+				//失败状态返回
+				abHttpListener.onFailure(throwable.getMessage());
+			}
+		});
+	}
+
 }

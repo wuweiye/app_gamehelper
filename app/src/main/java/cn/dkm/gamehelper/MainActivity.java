@@ -1,6 +1,5 @@
 package cn.dkm.gamehelper;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -26,19 +25,16 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.dkm.gamehelper.dao.UserDao;
-import cn.dkm.gamehelper.fragment.GamesFragment;
-import cn.dkm.gamehelper.fragment.MessageFragment;
-import cn.dkm.gamehelper.fragment.MoodNotesFragment;
-import cn.dkm.gamehelper.login.AboutActivity;
+import cn.dkm.gamehelper.user.dao.UserDao;
+import cn.dkm.gamehelper.gameInfo.fragment.GamesFragment;
+import cn.dkm.gamehelper.gameInfo.fragment.MessageFragment;
+import cn.dkm.gamehelper.gameInfo.fragment.MoodNotesFragment;
 import cn.dkm.gamehelper.login.LoginActivity;
 import cn.dkm.gamehelper.main.MainContentFragment;
 import cn.dkm.gamehelper.main.MainMenuFragment;
 import cn.dkm.gamehelper.model.User;
 import cn.dkm.gamehelper.model.params.GameLibrary;
 import cn.dkm.gamehelper.utils.CastUtils;
-
-import static android.content.ContentValues.TAG;
 
 
 public class MainActivity extends AbActivity {
