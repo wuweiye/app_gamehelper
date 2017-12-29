@@ -107,16 +107,8 @@ public class GamesFragment extends BaseFragment {
 
                 List<GameLibrary> libraries = (List<GameLibrary>) list;
 
-                Log.d(TAG, "start: ");
-                Log.d(TAG, "onSuccess: "+libraries.get(0).getContent());
                 processData(libraries);
 
-                /*Message message = Message.obtain();
-                Bundle bundle = new Bundle();
-                bundle.putCharSequenceArrayList("libraries",(ArrayList) libraries);
-                message.setData(bundle);
-                message.what = 1;
-                mHandler.handleMessage(message);*/
 
             }
 
@@ -125,6 +117,7 @@ public class GamesFragment extends BaseFragment {
                 Log.d(TAG, "start: String content");
                 BaseListResult baseListResult = (BaseListResult) AbJsonUtil.fromJson(content,BaseListResult.class);
                 List<GameLibrary> list = baseListResult.getRows();
+                Log.d(TAG, "onSuccess: "+ list.get(0));
                 processData(list);
             }
         });
@@ -144,7 +137,8 @@ public class GamesFragment extends BaseFragment {
                 public void onItemClick(View view, int position) {
                     Intent intent = new Intent();
                     intent.setClass(mContext, GameDetailActivity.class);
-                    intent.putExtra("gid",libraries.get(position).getGId());
+                    Log.d(TAG, "gid parent :" +libraries.get(position).getGid() +" name"+libraries.get(position).getName());
+                    intent.putExtra("gid",libraries.get(position).getGid());
                     startActivity(intent);
                 }
             });

@@ -34,7 +34,7 @@
             android:maxLines="1"
             android:ellipsize="end"
             android:textColor="#ff00ff"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/tv_content"
@@ -44,7 +44,7 @@
             android:ellipsize="end"
             android:text="store"
             android:textColor="#223452"
-            android:textSize="15sp" />
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/tv_num"
@@ -54,7 +54,7 @@
             android:maxLines="1"
             android:ellipsize="end"
             android:textColor="#223452"
-            android:textSize="15sp" />
+            android:textSize="14sp" />
 
         <!--<TextView
             android:id="@+id/tv_content"

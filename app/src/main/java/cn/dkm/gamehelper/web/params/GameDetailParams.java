@@ -40,4 +40,15 @@ public class GameDetailParams extends BaseParams{
     private int scale;
 
 
+
+
+    public int getTotalAll(){
+        int result = oneStarNum + thereStarNum + twoStarNum + fiveStarNum + fourStarNum;
+        if(result == 0){
+            return  1;
+        }
+        return result;
+    }
+
+
 }

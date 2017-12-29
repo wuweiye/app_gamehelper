@@ -67,7 +67,7 @@ public class GamesFragmentAdapter extends RecyclerView.Adapter<GamesFragmentAdap
     }
 
     public String getGid(int position){
-        return libraries.get(position).getGId();
+        return libraries.get(position).getGid();
     }
 
 

@@ -12,7 +12,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 public class GameLibrary extends BaseParams{
 
-    private  String gId;
+    private  String gid;
 
     private String name;
 

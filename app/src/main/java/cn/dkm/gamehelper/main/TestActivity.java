@@ -50,6 +50,7 @@ public class TestActivity extends AbActivity {
 
 
         Log.d("=====","start");
+
         abHttpUtil.get(url, new FileResponseListener(this,getApplicationContext(),imageView));
 
 
