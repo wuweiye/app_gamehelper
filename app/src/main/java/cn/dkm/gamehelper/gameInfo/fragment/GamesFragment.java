@@ -134,8 +134,9 @@ public class GamesFragment extends BaseFragment {
                 public void onItemClick(View view, int position) {
                     Intent intent = new Intent();
                     intent.setClass(mContext, GameDetailActivity.class);
-                    Log.d(TAG, "gid parent :" +libraries.get(position).getGid() +" name"+libraries.get(position).getName());
                     intent.putExtra("gid",libraries.get(position).getGid());
+                    intent.putExtra("name",libraries.get(position).getName());
+
                     startActivity(intent);
                 }
             });

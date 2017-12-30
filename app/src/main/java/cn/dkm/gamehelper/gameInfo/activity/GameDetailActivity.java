@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +24,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.dkm.gamehelper.R;
+import cn.dkm.gamehelper.global.Constant;
 import cn.dkm.gamehelper.listener.FileResponseListener;
 import cn.dkm.gamehelper.model.params.BaseListResult;
 import cn.dkm.gamehelper.model.params.GameLibrary;
@@ -34,28 +36,20 @@ import cn.dkm.gamehelper.web.result.GameDetailResult;
 public class GameDetailActivity extends AbActivity {
     private final static String TAG = "GameDetailActivity";
 
-   /* @BindView(R.id.tv_title)*/
     TextView mTvTitle;
-
-  /*  @BindView(R.id.tv_content)*/
     TextView mTvContent;
 
-  /*  @BindView(R.id.tv_num)*/
     TextView mTvNum;
 
-    /*@BindView(R.id.tv_time)*/
     TextView mTvTime;
 
-  /*  @BindView(R.id.tv_assent)*/
     TextView mTvAssent;
 
-  /*  @BindView(R.id.iv_game_icon)*/
+
     ImageView mIvGameIcon;
 
     @BindView(R.id.iv_icon)
     ImageView mIvIcon;
-
-
 
 
     private AbTitleBar mAbTitleBar = null;
@@ -70,14 +64,12 @@ public class GameDetailActivity extends AbActivity {
         mAbTitleBar.setVisibility(View.GONE);
 
         initView();
-
         initDate();
-
-
-
+        initListener();
 
 
     }
+
 
     private void initView() {
         mTvTitle = findViewById(R.id.tv_title);
@@ -86,14 +78,27 @@ public class GameDetailActivity extends AbActivity {
         mTvNum = findViewById(R.id.tv_num);
         mTvContent = findViewById(R.id.tv_content);
         mIvGameIcon = findViewById(R.id.iv_game_icon);
+
     }
 
     private void initDate() {
-        Log.d(TAG, " start  initDate");
+
+
+
+
+
+
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         String gid = bundle.getString("gid");
+        String name = bundle.getString("name");
+        mTvTitle.setText(name);
+        refreshTask(gid);
 
+    }
+
+
+    private void refreshTask(String gid) {
 
         AbRequestParams params = new AbRequestParams();
         params.put("gid",gid);
@@ -103,27 +108,30 @@ public class GameDetailActivity extends AbActivity {
         networkWeb.urlPost(params, UrlConstant.GAMES_DETAIL_URL, new AbHttpListener(){
 
             @Override
-            public void onFailure(String s) {
+            public void onFailure(String errorMessage) {
 
-                Toast.makeText(getApplicationContext(), "网络连接错误", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),"连接网络失败 错误信息"+ errorMessage ,Toast.LENGTH_SHORT).show();
 
             }
 
             @Override
             public void onSuccess(String content) {
-                Log.d("onSuccess", "onSuccess: " + content);
+
                 GameDetailParams gameDetailParams = (GameDetailParams) AbJsonUtil.fromJson(content,GameDetailParams.class);
 
                 freshenView(gameDetailParams);
             }
         });
+    }
+
+    private void initListener() {
 
     }
 
     private void freshenView(GameDetailParams gameDetailParams) {
 
         mTvNum.setText(gameDetailParams.getFiveStarNum() + "人关注");
-        mTvTitle.setText(gameDetailParams.getGameName());
+
         mTvContent.setText("游戏厂商:" + gameDetailParams.getDevelopStore());
         mTvAssent.setText("100%");
         String label = "";

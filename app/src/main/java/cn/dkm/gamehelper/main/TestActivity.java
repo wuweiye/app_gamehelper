@@ -35,10 +35,9 @@ public class TestActivity extends AbActivity {
 
         mAbTitleBar = this.getTitleBar();
         mAbTitleBar.setTitleText(R.string.app_name);
-        /*mAbTitleBar.setLogo(R.mipmap.ic_launcher);*/
+
         mAbTitleBar.setTitleBarBackgroundColor(R.color.colorPrimary);
-        /*mAbTitleBar.setTitleTextMargin(10,0,0,0);
-        mAbTitleBar.setLogoLine(R.drawable.line);*/
+
 
         imageView = findViewById(R.id.image);
 
