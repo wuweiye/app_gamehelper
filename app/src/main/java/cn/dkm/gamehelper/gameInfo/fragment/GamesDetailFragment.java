@@ -75,6 +75,7 @@ public class GamesDetailFragment extends BaseFragment {
         getDataFromNet();*/
     }
 
+
     private void getDataFromNet() {
 
      /*  String url = Constants.HOME_URL;

@@ -8,11 +8,15 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
-import android.widget.Toast;
 
+import com.ab.fragment.AbDialogFragment;
+import com.ab.fragment.AbLoadDialogFragment;
 import com.ab.http.AbHttpListener;
 import com.ab.http.AbRequestParams;
+import com.ab.task.AbTask;
+import com.ab.task.AbTaskItem;
+import com.ab.task.AbTaskListener;
+import com.ab.util.AbDialogUtil;
 import com.ab.util.AbJsonUtil;
 
 import java.util.List;
@@ -34,13 +38,11 @@ import cn.dkm.gamehelper.web.UrlConstant;
  */
 
 public class GamesFragment extends BaseFragment {
-    private static final String TAG = GamesFragment.class.getSimpleName();
-     private  TextView textView ;
-     private Handler mHandler;
-     //private AbPullToRefreshView mAbPullView;
 
-     private RecyclerView recyclerView;
-     private GamesFragmentAdapter adapter;
+    private static final String TAG = GamesFragment.class.getSimpleName();
+    private AbLoadDialogFragment mDialogFragment = null;
+    private RecyclerView recyclerView;
+    private GamesFragmentAdapter adapter;
 
     @SuppressWarnings("unchecked")
     @Override
@@ -48,26 +50,22 @@ public class GamesFragment extends BaseFragment {
 
        View view = View.inflate(mContext,R.layout.fragment_games,null);
        recyclerView = view.findViewById(R.id.rv_games);
-      /* mAbPullView = view.findViewById(R.id.mPullView);*/
+       setAbPullToRefreshView(view, true ,false);
 
-        initListener();
-        return view;
+       return view;
 
     }
 
     private void initListener() {
 
-/*
+/*        mDialogFragment.setAbDialogOnLoadListener(new AbDialogFragment.AbDialogOnLoadListener() {
 
-        mAbPullView.setOnHeaderRefreshListener(new AbPullToRefreshView.OnHeaderRefreshListener() {
-            @Override
-            public void onHeaderRefresh(AbPullToRefreshView abPullToRefreshView) {
+                    @Override
+                    public void onLoad() {
+                        // 费时操作
+                    }
 
-                Log.d(TAG, "onHeaderRefresh: ------------------------------");
-                getDataFromNet();
-            }
-        });
-*/
+                });*/
 
     }
 
@@ -75,15 +73,14 @@ public class GamesFragment extends BaseFragment {
     public void initDate() {
 
         super.initDate();
-   /*     mAbPullView.getHeaderView().setHeaderProgressBarDrawable(this.getResources().getDrawable(R.drawable.progress_circular));*/
-        //textView.setText("activity Fragment");
-        /*super.initDate();
-        //textView.setText("activity Fragment");
-        Log.e(TAG, "主页数据被初始化了");
-        //联网请求主页的数据
-        getDataFromNet();*/
 
+       /* //显示进度框
+        mDialogFragment = AbDialogUtil.showLoadDialog(getContext(), R.drawable.ic_load, "查询中,请等一小会");
+        initListener();*/
+
+        initListener();
         getDataFromNet();
+
 
     }
 
@@ -149,6 +146,37 @@ public class GamesFragment extends BaseFragment {
 
 
     }
+
+
+    public void refreshTask(final String flag){
+        AbTask mAbTask = new AbTask();
+        final AbTaskItem item = new AbTaskItem();
+
+        if(flag.equals(HEADER)){
+            item.setListener(new AbTaskListener() {
+                @Override
+                public void update() {
+                    AbDialogUtil.removeDialog(getContext());
+                    getDataFromNet();
+
+                    mAbPullToRefreshView.onHeaderRefreshFinish();
+                }
+
+                @Override
+                public void get() {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (Exception e) {
+                    }
+                };
+            });
+        }else {
+            mAbPullToRefreshView.onFooterLoadFinish();
+        }
+
+        mAbTask.execute(item);
+    }
+
 
 
     @Override
