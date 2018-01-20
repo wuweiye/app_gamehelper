@@ -7,6 +7,8 @@ package cn.dkm.gamehelper.web;
 public class UrlConstant {
 
 
+
+
     public static final String BASE = "http://dingkunming.cn/app/";
 
     /*public static final String BASE = "http://192.168.1.107:8866/app/";*/
@@ -27,7 +29,7 @@ public class UrlConstant {
 
 
 
-    public static final String LOGIN_URL = BASE + "login";
+    public static final String LOGIN_URL = BASE + "user/manage/login";
 
     public static final String GAMES_URL = BASE + "manage/get/games";
 
@@ -43,6 +45,30 @@ public class UrlConstant {
 
     public static final String GAME_LABEL_URL = BASE + "/game/label/manage/game/query";
 
+
+    public enum UrlType{
+        GAMES("games",BASE +"user/manage/login"),
+        ARTICLE("article", BASE + "manage/get/games"),
+        LOGIN("login",BASE + "user/manage/login");
+
+        private String type;
+        private String url;
+
+        UrlType(String type, String url) {
+            this.type = type;
+            this.url = url;
+        }
+
+
+        public String getType() {
+            return type;
+        }
+
+        public String getUrl() {
+            return url;
+        }
+
+    }
 
 
 }

@@ -36,6 +36,7 @@ import cn.dkm.gamehelper.main.MainMenuFragment;
 import cn.dkm.gamehelper.model.User;
 import cn.dkm.gamehelper.model.params.GameLibrary;
 import cn.dkm.gamehelper.utils.CastUtils;
+import cn.dkm.gamehelper.utils.SPUtil;
 
 
 public class MainActivity extends AbActivity {
@@ -293,6 +294,14 @@ public class MainActivity extends AbActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode,Intent intent) {
+
+        super.onActivityResult(requestCode, resultCode, intent);
+        AbLogUtil.d(this, requestCode + "--" + resultCode);
+
+        if(requestCode == 1001){
+
+
+        }
         if (resultCode != RESULT_OK) {
             return;
         }
@@ -408,6 +417,7 @@ public class MainActivity extends AbActivity {
         super.finish();
 
     }
+
 
 
     public class MainHandler extends Handler {

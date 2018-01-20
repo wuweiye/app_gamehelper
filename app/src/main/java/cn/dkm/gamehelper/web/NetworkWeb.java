@@ -17,9 +17,13 @@ import cn.dkm.gamehelper.model.Article;
 import cn.dkm.gamehelper.model.ArticleListResult;
 import cn.dkm.gamehelper.model.params.BaseListResult;
 import cn.dkm.gamehelper.model.params.GameLibrary;
+import cn.dkm.gamehelper.model.params.Login;
+import cn.dkm.gamehelper.model.params.LoginResult;
 import cn.dkm.gamehelper.web.params.GameArticleParams;
 
 import static android.content.ContentValues.TAG;
+import static cn.dkm.gamehelper.web.UrlConstant.UrlType.GAMES;
+import static cn.dkm.gamehelper.web.UrlConstant.UrlType.LOGIN;
 
 public class NetworkWeb {
 
@@ -133,6 +137,70 @@ public class NetworkWeb {
 
 
 	}
+
+
+	/**
+	 * 枚举请求数据
+	 * @param params
+	 * @param type 枚举
+	 * @param abHttpListener
+	 */
+	public void findQueryList(AbRequestParams params, final UrlConstant.UrlType type, final AbHttpListener abHttpListener){
+
+	/*	String url = getUrl(type);*/
+
+		mAbHttpUtil.post(type.getUrl(), params, new AbStringHttpResponseListener() {
+			@Override
+			public void onSuccess(int statusCode, String content) {
+
+				Result result = new Result(content);
+				if (result.getErrorCode()>=0) {
+
+					switch (type){
+						case GAMES:
+
+							BaseListResult baseListResult = (BaseListResult) AbJsonUtil.fromJson(content,BaseListResult.class);
+							List<GameLibrary> list = baseListResult.getRows();
+							abHttpListener.onSuccess(list);
+							break;
+						case LOGIN:
+
+							LoginResult loginResult = (LoginResult) AbJsonUtil.fromJson(content,LoginResult.class);
+							List<Login> loginList = loginResult.getRows();
+							abHttpListener.onSuccess(loginList);
+							break;
+					}
+
+
+				} else {
+					//将错误信息传递回去
+					abHttpListener.onFailure(result.getErrorMessage());
+				}
+
+			}
+
+			@Override
+			public void onStart() {
+
+			}
+
+			@Override
+			public void onFinish() {
+
+			}
+
+			@Override
+			public void onFailure(int statusCode, String s, Throwable throwable) {
+				//失败状态返回
+				abHttpListener.onFailure(throwable.getMessage());
+			}
+		});
+
+
+
+
+	}
+
 	
 	/**
 	 * 调用一个列表请求

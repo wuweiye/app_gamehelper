@@ -9,7 +9,12 @@ import lombok.Data;
 @Data
 public class Login {
 
-    private String uid;
+
+    private int resultCode;
+
+    private String resultMessage;
+
+    private String userId;
 
     private String time;
 

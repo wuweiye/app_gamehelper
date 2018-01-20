@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -24,15 +25,16 @@ import butterknife.Unbinder;
 import cn.dkm.gamehelper.R;
 import cn.dkm.gamehelper.model.params.GameLibrary;
 import cn.dkm.gamehelper.model.params.Login;
+import cn.dkm.gamehelper.utils.SPUtil;
 import cn.dkm.gamehelper.web.NetworkWeb;
 import cn.dkm.gamehelper.web.UrlConstant;
 
 public class LoginActivity extends AppCompatActivity {
 
-    @BindView(R.id.tv_register)
+
     TextView mRegister;
 
-    @BindView(R.id.tv_pwd)
+
     TextView mForgetPwd;
 
     @BindView(R.id.et_phone)
@@ -55,7 +57,6 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        bind = ButterKnife.bind(this);
 
         initView();
         initListener();
@@ -67,29 +68,37 @@ public class LoginActivity extends AppCompatActivity {
 
     private void initView() {
 
-        SharedPreferences sp = getSharedPreferences("phone",MODE_PRIVATE);
+        mLogin = findViewById(R.id.bt_login);
+        mPhone = findViewById(R.id.et_phone);
+        mPwd = findViewById(R.id.et_pwd);
 
-        String phone = sp.getString("phone","");
-        String pwd = sp.getString("pwd", "");
+
+        String phone =  SPUtil.getString(getApplicationContext(), "phone", "15670698550");
+        String pwd =  SPUtil.getString(getApplicationContext(), "pwd", "15670698550");
+
 
         mPhone.setText(phone);
         mPwd.setText(pwd);
+
     }
 
     private void initListener() {
 
+        mLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                login();
+            }
+        });
 
     }
 
 
 
-    @OnClick(R.id.bt_login)
     public void login(){
 
         final String phone = mPhone.getText().toString();
         final String pwd = mPwd.getText().toString();
-
-
 
         if(!TextUtils.isEmpty(phone) && !TextUtils.isEmpty(pwd)){
 
@@ -100,7 +109,7 @@ public class LoginActivity extends AppCompatActivity {
             params.put("pwd", pwd);
 
             NetworkWeb networkWeb = NetworkWeb.newInstance(getApplicationContext());
-            networkWeb.findQueryList(params, UrlConstant.LOGIN, new AbHttpListener() {
+            networkWeb.findQueryList(params, UrlConstant.UrlType.LOGIN, new AbHttpListener() {
                 @Override
                 public void onFailure(String s) {
 
@@ -110,7 +119,7 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void onSuccess(List<?> list) {
                     List<Login> loginList = (List<Login>) list;
-                    processData(loginList);
+                    processData(loginList.get(0));
                 }
 
                 @Override
@@ -124,7 +133,27 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private void processData(List<Login> list) {
+    private void processData(Login login) {
+
+
+
+        if(login.getResultCode() == 0){
+
+            SPUtil.putString(getApplicationContext(),"status","login");
+            SPUtil.putString(getApplicationContext(),"userId",login.getUserId());
+            SPUtil.putString(getApplicationContext(),"time",login.getTime());
+            SPUtil.putString(getApplicationContext(),"key",login.getKey());
+
+            Intent intent = new Intent();
+            intent.putExtra("result", "success");
+            setResult(1001, intent);
+            finish();
+
+        }else {
+
+            Toast.makeText(getApplicationContext(),"登陆失败,失败原因：" + login.getResultMessage(), Toast.LENGTH_SHORT).show();
+        }
+
 
 
 
@@ -134,6 +163,6 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        bind.unbind();
+
     }
 }

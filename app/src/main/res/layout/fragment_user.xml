@@ -22,6 +22,7 @@
                 android:background="@drawable/my_beijing"
                 >
 
+
                 <ImageView
                     android:id="@+id/iv_setting"
                     android:layout_width="wrap_content"
@@ -30,66 +31,94 @@
                     android:layout_marginTop="30dp"
                     android:src="@drawable/setting" />
 
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/civ_icon"
+                <RelativeLayout
+                    android:id="@+id/rl_login"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="42.5dp"
-                    android:src="@drawable/my_touxiang" />
+                    android:layout_height="wrap_content">
 
-                <TextView
-                    android:id="@+id/tv_name"
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/civ_icon"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="42.5dp"
+                        android:src="@drawable/my_touxiang" />
+
+                    <TextView
+                        android:id="@+id/tv_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/civ_icon"
+                        android:layout_marginTop="5dp"
+                        android:gravity="center"
+                        android:text="瓶子里的氧气"
+                        android:textColor="#ffffff"
+                        android:textSize="15sp" />
+
+
+                    <ProgressBar
+                        android:id="@+id/my_progress_bar"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="177.5dp"
+                        android:layout_height="5dp"
+                        android:layout_below="@id/tv_name"
+                        android:layout_centerInParent="true"
+                        android:layout_marginTop="20dp"
+                        android:progressDrawable="@drawable/my_progress_bar_bg" />
+
+                    <ImageView
+                        android:id="@+id/iv_level_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@id/my_progress_bar"
+                        android:layout_below="@id/my_progress_bar"
+                        android:layout_marginTop="8dp"
+                        android:src="@drawable/my_leve" />
+
+                    <TextView
+                        android:id="@+id/tv_level"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/my_progress_bar"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_toRightOf="@id/iv_level_icon"
+                        android:text="LV.3"
+                        android:textColor="#ffffff"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/tv_level_pro"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignRight="@id/my_progress_bar"
+                        android:layout_below="@+id/my_progress_bar"
+                        android:layout_marginTop="4dp"
+                        android:text="0/0"
+                        android:textColor="#ffffff"
+                        android:textSize="12sp" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_no_login"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/civ_icon"
-                    android:layout_marginTop="5dp"
-                    android:gravity="center"
-                    android:text="瓶子里的氧气"
-                    android:textColor="#ffffff"
-                    android:textSize="15sp" />
+                    android:layout_height="match_parent">
+
+                    <Button
+                        android:gravity="center"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="64dp"
+                        android:layout_marginLeft="64dp"
+                        android:id="@+id/bt_login"
+                        android:textColor="@color/blue"
+                        android:textSize="16sp"
+                        android:background="@drawable/login_button"
+                        android:text="立刻登陆"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
 
 
-                <ProgressBar
-                    android:id="@+id/my_progress_bar"
-                    style="?android:attr/progressBarStyleHorizontal"
-                    android:layout_width="177.5dp"
-                    android:layout_height="5dp"
-                    android:layout_below="@id/tv_name"
-                    android:layout_centerInParent="true"
-                    android:layout_marginTop="20dp"
-                    android:progressDrawable="@drawable/my_progress_bar_bg" />
-
-                <ImageView
-                    android:id="@+id/iv_level_icon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignLeft="@id/my_progress_bar"
-                    android:layout_below="@id/my_progress_bar"
-                    android:layout_marginTop="8dp"
-                    android:src="@drawable/my_leve" />
-
-                <TextView
-                    android:id="@+id/tv_level"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/my_progress_bar"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginTop="4dp"
-                    android:layout_toRightOf="@id/iv_level_icon"
-                    android:text="LV.3"
-                    android:textColor="#ffffff"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:id="@+id/tv_level_pro"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignRight="@id/my_progress_bar"
-                    android:layout_below="@+id/my_progress_bar"
-                    android:layout_marginTop="4dp"
-                    android:text="0/0"
-                    android:textColor="#ffffff"
-                    android:textSize="12sp" />
             </RelativeLayout>
 
             <View
