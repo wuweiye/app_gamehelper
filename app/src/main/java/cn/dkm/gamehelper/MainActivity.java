@@ -25,6 +25,7 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.dkm.gamehelper.gameInfo.fragment.UserFragment;
 import cn.dkm.gamehelper.user.dao.UserDao;
 import cn.dkm.gamehelper.gameInfo.fragment.GamesFragment;
 import cn.dkm.gamehelper.gameInfo.fragment.MessageFragment;
@@ -128,7 +129,7 @@ public class MainActivity extends AbActivity {
         fragments.add(new GamesFragment());
         fragments.add(new MoodNotesFragment());
         fragments.add(new MessageFragment());
-        fragments.add(new MessageFragment());
+        fragments.add(new UserFragment());
     }
 
     private void initRadio() {

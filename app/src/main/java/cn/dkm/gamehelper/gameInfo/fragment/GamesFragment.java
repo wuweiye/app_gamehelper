@@ -3,7 +3,6 @@ package cn.dkm.gamehelper.gameInfo.fragment;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -76,16 +75,13 @@ public class GamesFragment extends BaseFragment {
 
        /* //显示进度框
         mDialogFragment = AbDialogUtil.showLoadDialog(getContext(), R.drawable.ic_load, "查询中,请等一小会");
-        initListener();*/
-
+        */
         initListener();
         getDataFromNet();
-
 
     }
 
     private void getDataFromNet() {
-
 
         AbRequestParams params = new AbRequestParams();
 
@@ -93,6 +89,17 @@ public class GamesFragment extends BaseFragment {
         params.put("status","valid");
         params.put("page","1");
         params.put("rows","10");
+
+        //TODO : 后期视情况优化
+        /*connectNet(params, UrlConstant.GAMES);
+
+        if(status){
+            List<GameLibrary> libraries = (List<GameLibrary>) data;
+            processData(libraries);
+        }else {
+            Log.d("-------=---", "error");
+        }*/
+
         networkWeb.findQueryList( params, UrlConstant.GAMES,new AbHttpListener() {
             @Override
             public void onFailure(String content) {
@@ -103,7 +110,6 @@ public class GamesFragment extends BaseFragment {
             public void onSuccess(List<?> list) {
 
                 List<GameLibrary> libraries = (List<GameLibrary>) list;
-
                 processData(libraries);
 
 
@@ -111,10 +117,9 @@ public class GamesFragment extends BaseFragment {
 
             @Override
             public void onSuccess(String content) {
-                Log.d(TAG, "start: String content");
+
                 BaseListResult baseListResult = (BaseListResult) AbJsonUtil.fromJson(content,BaseListResult.class);
                 List<GameLibrary> list = baseListResult.getRows();
-                Log.d(TAG, "onSuccess: "+ list.get(0));
                 processData(list);
             }
         });
@@ -140,7 +145,6 @@ public class GamesFragment extends BaseFragment {
                     startActivity(intent);
                 }
             });
-
 
         }
 

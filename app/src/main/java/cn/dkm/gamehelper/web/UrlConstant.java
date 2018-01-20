@@ -21,7 +21,13 @@ public class UrlConstant {
 
     public static final String GAME_LABEL = "game_label";
 
+    public static final String LOGIN = "login";
 
+
+
+
+
+    public static final String LOGIN_URL = BASE + "login";
 
     public static final String GAMES_URL = BASE + "manage/get/games";
 

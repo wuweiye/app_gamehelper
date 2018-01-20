@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fitsSystemWindows="false">
+
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
+                android:background="@drawable/my_beijing"
+                >
+
+                <ImageView
+                    android:id="@+id/iv_setting"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="30dp"
+                    android:src="@drawable/setting" />
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/civ_icon"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="42.5dp"
+                    android:src="@drawable/my_touxiang" />
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/civ_icon"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:text="瓶子里的氧气"
+                    android:textColor="#ffffff"
+                    android:textSize="15sp" />
+
+
+                <ProgressBar
+                    android:id="@+id/my_progress_bar"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="177.5dp"
+                    android:layout_height="5dp"
+                    android:layout_below="@id/tv_name"
+                    android:layout_centerInParent="true"
+                    android:layout_marginTop="20dp"
+                    android:progressDrawable="@drawable/my_progress_bar_bg" />
+
+                <ImageView
+                    android:id="@+id/iv_level_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@id/my_progress_bar"
+                    android:layout_below="@id/my_progress_bar"
+                    android:layout_marginTop="8dp"
+                    android:src="@drawable/my_leve" />
+
+                <TextView
+                    android:id="@+id/tv_level"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/my_progress_bar"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_toRightOf="@id/iv_level_icon"
+                    android:text="LV.3"
+                    android:textColor="#ffffff"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/tv_level_pro"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignRight="@id/my_progress_bar"
+                    android:layout_below="@+id/my_progress_bar"
+                    android:layout_marginTop="4dp"
+                    android:text="0/0"
+                    android:textColor="#ffffff"
+                    android:textSize="12sp" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="#F5F5F5" />
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1.5dp"
+                android:background="#F5F5F5" />
+
+            <cn.dkm.gamehelper.view.UserItemView
+                android:id="@+id/rl_xiaoxizhongxin"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="消息中心"
+                android:src="@drawable/message_fill"
+                >
+
+            </cn.dkm.gamehelper.view.UserItemView>
+
+            <cn.dkm.gamehelper.view.UserItemView
+                android:id="@+id/rl_kechengtuijian"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="消息中心"
+                android:src="@drawable/message_fill"
+                >
+
+            </cn.dkm.gamehelper.view.UserItemView>
+            <cn.dkm.gamehelper.view.UserItemView
+                android:id="@+id/rl_wodeshoucang"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="消息中心"
+                android:src="@drawable/message_fill"
+                >
+            </cn.dkm.gamehelper.view.UserItemView>
+
+
+            <cn.dkm.gamehelper.view.UserItemView
+                android:id="@+id/rl_gouwuche"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="消息中心"
+                android:src="@drawable/message_fill"
+                >
+            </cn.dkm.gamehelper.view.UserItemView>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="#F5F5F5" />
+
+
+            <!--<cn.dkm.gamehelper.view.UserItemView
+                android:id="@+id/rl_xuexijilu"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="学习记录"
+                android:src="@drawable/message_fill"
+                >
+            </cn.dkm.gamehelper.view.UserItemView>
+
+
+
+            <cn.dkm.gamehelper.view.UserItemView
+                android:id="@+id/rl_wodeyouhuiquan"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="我的优惠券"
+                android:src="@drawable/message_fill"
+                >
+            </cn.dkm.gamehelper.view.UserItemView>
+
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@color/white" />
+
+
+            <cn.dkm.gamehelper.view.UserItemView
+                android:id="@+id/rl_gerenziliao"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="个人资料"
+                android:src="@drawable/message_fill"
+                >
+            </cn.dkm.gamehelper.view.UserItemView>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@color/white" />-->
+        </LinearLayout>
+    </ScrollView>
+</android.support.design.widget.CoordinatorLayout>

@@ -42,6 +42,6 @@
         <RadioButton
             android:id="@+id/rb_user"
             style="@style/MainButtonStyle"
-            android:text="预留4" />
+            android:text="我的" />
     </RadioGroup>
 </LinearLayout>

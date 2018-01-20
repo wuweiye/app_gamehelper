@@ -78,6 +78,12 @@ public class NetworkWeb {
 		});
 	}
 
+	/**
+	 * 请求数据
+	 * @param params
+	 * @param type
+	 * @param abHttpListener
+	 */
 	public void findQueryList(AbRequestParams params, final String type, final AbHttpListener abHttpListener){
 
 		String url = getUrl(type);
@@ -90,8 +96,14 @@ public class NetworkWeb {
 				if (result.getErrorCode()>=0) {
 
 					BaseListResult baseListResult = (BaseListResult) AbJsonUtil.fromJson(content,BaseListResult.class);
-					List<GameLibrary> list = baseListResult.getRows();
-					abHttpListener.onSuccess(content);
+
+					if(type.equals(UrlConstant.GAMES)){
+						List<GameLibrary> list = baseListResult.getRows();
+						abHttpListener.onSuccess(list);
+					}
+
+
+
 
 				} else {
 					//将错误信息传递回去

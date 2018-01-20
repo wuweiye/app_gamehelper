@@ -25,7 +25,7 @@ public class LauncherActivity extends Activity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_launcher);
-        mLaunchLayout = (RelativeLayout) findViewById(R.id.launch);
+        mLaunchLayout =  findViewById(R.id.launch);
         init();
         setListener();
     }

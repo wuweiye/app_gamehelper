@@ -1,0 +1,19 @@
+# Created by .ignore support plugin (hsz.mobi)
+/build/
+/.idea/
+/.gradle/
+/gradle/
+.gitignore
+.gradle/
+.idea/libraries/
+.idea/misc.xml
+.idea/modules.xml
+.idea/runConfigurations.xml
+.idea/workspace.xml
+app/app.iml
+app/build/
+app/src/main/gen/
+app_gamehelper.iml
+build/
+/app/proguard-rules.pro
+/.idea/gradle.xml

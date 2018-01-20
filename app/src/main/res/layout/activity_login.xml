@@ -1,9 +1,179 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="cn.dkm.gamehelper.login.LoginActivity">
+    android:orientation="vertical"
+    tools:context=".login.LoginActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <TextView
+        android:id="@+id/tv_welcome"
+        android:layout_width="match_parent"
+        android:layout_height="256dp"
+        android:textSize="50sp"
+        android:gravity="center"
+        android:textColor="@color/blue"
+        android:textStyle="bold"
+        android:text="Welcome"/>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_del"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/tel"
+            android:layout_marginLeft="30dp"/>
+
+        <EditText
+            android:id="@+id/et_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="手机号"
+            android:textSize="15sp"
+            android:background="@null"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="54dp"
+            android:inputType="number|phone"
+            android:maxLength="11"
+            android:layout_toRightOf="@id/iv_del"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#999999"
+
+            android:layout_marginRight="54dp"
+            android:layout_marginTop="1dp"
+            android:layout_below="@id/et_phone"
+            android:layout_alignLeft="@id/et_phone"
+            />
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp">
+
+        <ImageView
+            android:id="@+id/iv_pwd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/lock"
+            android:layout_marginLeft="30dp"/>
+
+        <EditText
+            android:id="@+id/et_pwd"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="密码"
+            android:textSize="15sp"
+            android:background="@null"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="54dp"
+            android:inputType="textPassword"
+            android:maxLength="11"
+            android:layout_toRightOf="@id/iv_pwd"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#999999"
+            android:layout_marginRight="54dp"
+            android:layout_marginTop="1dp"
+            android:layout_below="@id/et_pwd"
+            android:layout_alignLeft="@id/et_pwd"
+            />
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_register"
+            android:text="立刻注册"
+            android:layout_marginLeft="54dp"
+            android:textSize="13sp"
+            android:textColor="@color/blue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/tv_pwd"
+            android:text="找回密码"
+            android:layout_marginRight="54dp"
+            android:textSize="13sp"
+            android:textColor="@color/blue"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_marginTop="12dp"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/bt_login"
+            android:text="登录"
+            android:layout_marginLeft="54dp"
+            android:layout_marginRight="54dp"
+            android:background="@drawable/login_button"
+            android:textColor="#ffffff"
+            android:textSize="15sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_marginTop="32dp"
+        android:textSize="13sp"
+        android:textColor="#999999"
+        android:text="还可以通过以下方式一键登录"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="54dp"
+        android:layout_marginRight="54dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/qq"/>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/qq"/>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/qq"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>
