@@ -2,6 +2,6 @@
 
     <!-- slidingmenu配置 -->
     <dimen name="slidingmenu_offset">100dp</dimen>
-    <dimen name="shadow_width">16sp</dimen>
+    <dimen name="shadow_width">1sp</dimen>
 
 </resources>

@@ -17,7 +17,9 @@ import com.ab.view.pullview.AbPullToRefreshView;
 
 import java.util.List;
 
+import cn.dkm.gamehelper.MainActivity;
 import cn.dkm.gamehelper.R;
+import cn.dkm.gamehelper.gameInfo.holder.UserHolder;
 import cn.dkm.gamehelper.model.params.BaseListResult;
 import cn.dkm.gamehelper.model.params.GameLibrary;
 import cn.dkm.gamehelper.web.NetworkWeb;
@@ -36,7 +38,9 @@ public abstract class BaseFragment extends Fragment {
 
     public Context mContext;
     public AbPullToRefreshView mAbPullToRefreshView;
-    public Handler mHandler;
+    public MainActivity.MainHandler mHandler;
+
+    public UserHolder mUserHolder;
 
     public List<?> data;
     public boolean status = false;
@@ -46,6 +50,7 @@ public abstract class BaseFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mContext = getActivity();
+
     }
 
     @Nullable
@@ -144,8 +149,11 @@ public abstract class BaseFragment extends Fragment {
     }
 
 
-
-
-
-
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        MainActivity  mainActivity = (MainActivity) context;
+        this.mHandler = mainActivity.getHandler();
+        this.mUserHolder = mainActivity.getUserHolder();
+    }
 }

@@ -1,77 +1,69 @@
 package cn.dkm.gamehelper.gameInfo.fragment;
 
-import android.app.Activity;
-import android.content.Intent;
+
+import android.graphics.Color;
+import android.os.Message;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.ab.http.AbRequestParams;
+import com.ab.util.AbFileUtil;
+import com.ab.util.AbJsonUtil;
 
-import org.w3c.dom.Text;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import cn.dkm.gamehelper.R;
 import cn.dkm.gamehelper.base.BaseFragment;
-import cn.dkm.gamehelper.login.LoginActivity;
-import cn.dkm.gamehelper.utils.SPUtil;
-import cn.dkm.gamehelper.web.NetworkWeb;
-import de.hdodenhof.circleimageview.CircleImageView;
+import cn.dkm.gamehelper.gameInfo.adapter.UserGamesRecycleAdapter;
+import cn.dkm.gamehelper.model.Article;
+import cn.dkm.gamehelper.model.ArticleListResult;
 
 
 /**
  * Created by Administrator on 2017/2/16.
  */
 
-public class UserFragment extends BaseFragment {
+public class UserFragment extends BaseFragment implements View.OnClickListener {
 
 
-    private ImageView mSetting;
+    private TextView mCollGame;
 
-    private CircleImageView mUserIcon;
+    private TextView mFollowForum;
 
-    private TextView mUserName;
+    private RecyclerView mRVCollGame;
 
-    private ProgressBar mLevelProgress;
+    private RecyclerView mRVFollowForum;
 
-    private TextView mUserLevel;
+    private List<Article> first;
+    private List<Article> second;
+    private UserGamesRecycleAdapter firstAdapter;
+    private UserGamesRecycleAdapter secondAdapter;
 
-    private TextView mUserLevelPro;
 
-    private RelativeLayout mLogin;
-
-    private LinearLayout mNoLogin;
-
-    private Button mButton;
 
 
 
     @Override
     public View initView() {
-       View view = View.inflate(getContext(), R.layout.fragment_user, null);
+        View view = View.inflate(getContext(), R.layout.fragment_user, null);
 
-        mSetting = view.findViewById(R.id.iv_setting);
-        mUserIcon = view.findViewById(R.id.civ_icon);
-        mUserName = view.findViewById(R.id.tv_name);
-        mLevelProgress = view.findViewById(R.id.my_progress_bar);
-        mUserLevel = view.findViewById(R.id.tv_level);
-        mUserLevelPro = view.findViewById(R.id.tv_level_pro);
-        mNoLogin = view.findViewById(R.id.ll_no_login);
-        mLogin = view.findViewById(R.id.rl_login);
-        mButton = view.findViewById(R.id.bt_login);
+        mCollGame = view.findViewById(R.id.tv_coll_game);
+        mFollowForum = view.findViewById(R.id.tv_follow_forum);
 
-        mButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getContext(), LoginActivity.class);
-                startActivityForResult(intent, Activity.RESULT_FIRST_USER);
+        mRVCollGame = view.findViewById(R.id.rv_coll_game);
+        mRVFollowForum = view.findViewById(R.id.rv_follow_forum);
 
-            }
-        });
+        mRVFollowForum.setVisibility(View.GONE);
+
+        mCollGame.setOnClickListener(this);
+        mFollowForum.setOnClickListener(this);
+        mCollGame.setTextColor(Color.BLUE);
+
+
         return view;
     }
 
@@ -79,45 +71,74 @@ public class UserFragment extends BaseFragment {
     @Override
     public void initDate() {
 
+        mUserHolder.title.setText("个人中心");
 
-       SPUtil.putString(getContext(), "status","");
         getDataFromNet();
+        if(first != null && first.size() > 0){
+
+            Log.d("--------", first.size() +"====");
+            firstAdapter = new UserGamesRecycleAdapter(getContext(), first);
+
+            GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 1);
+            mRVCollGame.setLayoutManager(gridLayoutManager);
+            mRVCollGame.setAdapter(firstAdapter);
+
+        }
+
+        if(second != null && second.size() > 0){
+
+            Log.d("--------", second.size() +"====");
+            GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 1);
+            secondAdapter = new UserGamesRecycleAdapter(getContext(), second);
+            mRVFollowForum.setLayoutManager(gridLayoutManager);
+            mRVFollowForum.setAdapter(secondAdapter);
+        }
 
     }
 
     private void getDataFromNet() {
 
-        String status = SPUtil.getString(getContext(), "status","");
-        if(status.equals("")){
 
-            mNoLogin.setVisibility(View.VISIBLE);
-            mLogin.setVisibility(View.GONE);
+        final String result = AbFileUtil.readAssetsByName(mContext, "article_list.json","UTF-8");
 
 
-        }else {
-            mNoLogin.setVisibility(View.GONE);
-            mLogin.setVisibility(View.VISIBLE);
-        }
+        ArticleListResult articleListResult = (ArticleListResult) AbJsonUtil.fromJson(result,ArticleListResult.class);
+
+        List<Article> articles = articleListResult.getItems();
+
+        first = articles;
+
+        second = new ArrayList<>();
+
+        second.addAll(articles);
+        second.addAll(articles);
 
 
-        
+
+
     }
 
 
+
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+    public void onClick(View view) {
 
+        switch (view.getId()) {
+            case R.id.tv_coll_game:
 
+                mCollGame.setTextColor(Color.BLUE);
+                mFollowForum.setTextColor(getResources().getColor(R.color.gray_light));
+                mRVCollGame.setVisibility(View.VISIBLE);
+                mRVFollowForum.setVisibility(View.GONE);
+                break;
+            case R.id.tv_follow_forum:
 
-        if(requestCode == 1 && resultCode == 1001){
-            String result = data.getStringExtra("result");
-            getDataFromNet();
+                mCollGame.setTextColor(getResources().getColor(R.color.gray_light));
+                mFollowForum.setTextColor(Color.BLUE);
+                mRVFollowForum.setVisibility(View.VISIBLE);
+                mRVCollGame.setVisibility(View.GONE);
+                break;
 
-            String key = SPUtil.getString(getContext(),"key","");
-
-
-            Log.d("------------",key +"--" + result);
         }
     }
 }

@@ -22,10 +22,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".main.TestActivity"></activity>
+        <activity android:name=".main.TestActivity" />
         <activity android:name=".login.LoginActivity" />
         <activity android:name=".login.AboutActivity" />
-        <activity android:name=".gameInfo.activity.GameDetailActivity"></activity>
+        <activity android:name=".gameInfo.activity.GameDetailActivity" />
+        <activity android:name=".gameInfo.activity.UserActivity"></activity>
     </application>
 
 </manifest>

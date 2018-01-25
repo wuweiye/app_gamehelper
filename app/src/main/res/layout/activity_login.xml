@@ -7,10 +7,43 @@
     android:orientation="vertical"
     tools:context=".login.LoginActivity">
 
+    <RelativeLayout
+        android:background="@color/mi_ku_green"
+        android:layout_width="match_parent"
+        android:gravity="center_vertical"
+        android:layout_height="60dp">
+
+        <ImageView
+            android:id="@+id/iv_quit"
+            android:src="@drawable/quit"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:gravity="center"
+            android:text="新用户注册"
+            android:layout_marginRight="80dp"
+            android:layout_marginLeft="80dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <ImageView
+            android:id="@+id/iv_setting"
+            android:src="@drawable/setting"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+
     <TextView
         android:id="@+id/tv_welcome"
         android:layout_width="match_parent"
-        android:layout_height="256dp"
+        android:layout_height="200dp"
         android:textSize="50sp"
         android:gravity="center"
         android:textColor="@color/blue"

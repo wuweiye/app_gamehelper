@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,6 +47,7 @@ public class LoginActivity extends AppCompatActivity {
     @BindView(R.id.bt_login)
     Button mLogin;
 
+    ImageView mIvQuit;
     Unbinder bind;
 
     String sessionid;
@@ -71,6 +73,7 @@ public class LoginActivity extends AppCompatActivity {
         mLogin = findViewById(R.id.bt_login);
         mPhone = findViewById(R.id.et_phone);
         mPwd = findViewById(R.id.et_pwd);
+        mIvQuit = findViewById(R.id.iv_quit);
 
 
         String phone =  SPUtil.getString(getApplicationContext(), "phone", "15670698550");
@@ -91,6 +94,12 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        mIvQuit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 
 

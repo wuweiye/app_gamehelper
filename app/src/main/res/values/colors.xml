@@ -21,4 +21,6 @@
     <color name="list_divider">#D3D3D3</color>
     <color name="transparent">#000000</color>
     <color name="transparent_bg">#88838B</color>
+
+    <color name="mi_ku_green"> #39C5BB</color>
 </resources>

@@ -47,6 +47,7 @@ public class GamesFragment extends BaseFragment {
     @Override
     public View initView() {
 
+        mUserHolder.title.setText("游戏列表");
        View view = View.inflate(mContext,R.layout.fragment_games,null);
        recyclerView = view.findViewById(R.id.rv_games);
        setAbPullToRefreshView(view, true ,false);
@@ -184,6 +185,7 @@ public class GamesFragment extends BaseFragment {
 
 
 
+/*
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -192,6 +194,7 @@ public class GamesFragment extends BaseFragment {
         Log.d(TAG, "onAttach: mHandler 初始化ok");
     }
 
+*/
 
 
 

@@ -29,6 +29,7 @@ public class GamesDetailFragment extends BaseFragment {
     @Override
     public View initView() {
 
+        mUserHolder.title.setText("游戏详情");
 
         AbRequestParams params = new AbRequestParams();
 

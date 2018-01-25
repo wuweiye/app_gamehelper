@@ -3,7 +3,11 @@ package cn.dkm.gamehelper.model;
 import com.ab.db.orm.annotation.Column;
 import com.ab.db.orm.annotation.Id;
 import com.ab.db.orm.annotation.Table;
+
+import lombok.Data;
+
 @Table(name = "user")
+@Data
 public class User {
 
 	// ID @Id主键,int类型,数据库建表时此字段会设为自增长
@@ -86,165 +90,6 @@ public class User {
 	@Column(name = "is_login_user")
 	private boolean isLoginUser;
 
-	public String getUserName() {
-		return userName;
-	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getSex() {
-		return sex;
-	}
-
-	public void setSex(String sex) {
-		this.sex = sex;
-	}
-
-	public int getAge() {
-		return age;
-	}
-
-	public void setAge(int age) {
-		this.age = age;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getQuestion() {
-		return question;
-	}
-
-	public void setQuestion(String question) {
-		this.question = question;
-	}
-
-	public String getAnswer() {
-		return answer;
-	}
-
-	public void setAnswer(String answer) {
-		this.answer = answer;
-	}
-
-	public int getRights() {
-		return rights;
-	}
-
-	public void setRights(int rights) {
-		this.rights = rights;
-	}
-
-
-	public String getHeadUrl() {
-        return headUrl;
-    }
-
-    public void setHeadUrl(String headUrl){
-        this.headUrl = headUrl;
-    }
-
-    public int getPoint() {
-		return point;
-	}
-
-	public void setPoint(int point) {
-		this.point = point;
-	}
-
-	public String getCity() {
-		return city;
-	}
-
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-	public String getIntro() {
-		return intro;
-	}
-
-	public void setIntro(String intro) {
-		this.intro = intro;
-	}
-
-	public String getCreateTime() {
-		return createTime;
-	}
-
-	public void setCreateTime(String createTime) {
-		this.createTime = createTime;
-	}
-
-	public int getLoginCount() {
-		return loginCount;
-	}
-
-	public void setLoginCount(int loginCount) {
-		this.loginCount = loginCount;
-	}
-
-	public String getNickName() {
-		return nickName;
-	}
-
-	public void setNickName(String nickName) {
-		this.nickName = nickName;
-	}
-
-	public String getRemark() {
-		return remark;
-	}
-
-	public void setRemark(String remark) {
-		this.remark = remark;
-	}
-
-	public int get_id() {
-		return _id;
-	}
-
-	public void set_id(int _id) {
-		this._id = _id;
-	}
-
-	public void setuId(String uId) {
-		this.uId = uId;
-	}
-
-	public String getuId() {
-		return uId;
-	}
-
-	public String getAccessToken() {
-		return accessToken;
-	}
-
-	public void setAccessToken(String accessToken) {
-		this.accessToken = accessToken;
-	}
-
-	public boolean isLoginUser() {
-		return isLoginUser;
-	}
-
-	public void setLoginUser(boolean isLoginUser) {
-		this.isLoginUser = isLoginUser;
-	}
 
 }

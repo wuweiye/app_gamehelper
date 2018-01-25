@@ -7,9 +7,12 @@ import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ab.activity.AbActivity;
@@ -26,6 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.dkm.gamehelper.gameInfo.fragment.UserFragment;
+import cn.dkm.gamehelper.gameInfo.holder.UserHolder;
 import cn.dkm.gamehelper.user.dao.UserDao;
 import cn.dkm.gamehelper.gameInfo.fragment.GamesFragment;
 import cn.dkm.gamehelper.gameInfo.fragment.MessageFragment;
@@ -37,9 +41,10 @@ import cn.dkm.gamehelper.model.User;
 import cn.dkm.gamehelper.model.params.GameLibrary;
 import cn.dkm.gamehelper.utils.CastUtils;
 import cn.dkm.gamehelper.utils.SPUtil;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 
-public class MainActivity extends AbActivity {
+public class MainActivity extends AbActivity implements View.OnClickListener{
 
 
     private MainHandler handler;
@@ -49,6 +54,13 @@ public class MainActivity extends AbActivity {
     private MainContentFragment mMainContentFragment = null;
     private ArrayList fragments;
     private Fragment tempFragemnt;
+
+
+    private UserHolder userHolder;
+
+
+
+
 
     // 数据库操作类
     public AbSqliteStorage mAbSqliteStorage = null;
@@ -68,19 +80,20 @@ public class MainActivity extends AbActivity {
         setAbContentView(R.layout.activity_main);
         handler = new MainHandler(this);
 
-        //application = (MyApplication) abApplication;
 
-        mAbTitleBar = this.getTitleBar();
+        initMenu();
 
-        mAbTitleBar.setTitleText(R.string.app_name);
-        mAbTitleBar.setLogo(R.mipmap.ic_launcher);
-        mAbTitleBar.setTitleBarBackgroundColor(R.color.colorPrimary);
-        mAbTitleBar.setTitleTextMargin(10,0,0,0);
-        mAbTitleBar.setLogoLine(R.drawable.line);
+        
+        initView();
+        initFragment();
+        initRadio();
+
+
+    }
+
+    private void initMenu() {
 
         mMainContentFragment = new MainContentFragment();
-
-
         mMainMenuFragment = new MainMenuFragment();
         // SlidingMenu的配置
         menu = new SlidingMenu(this);
@@ -97,28 +110,20 @@ public class MainActivity extends AbActivity {
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.menu_frame, mMainMenuFragment).commit();
 
-        mAbTitleBar.getLogoView().setOnClickListener(new View.OnClickListener() {
+    }
 
-            @Override
-            public void onClick(View arg0) {
-                if (menu.isMenuShowing()) {
-                    menu.showContent();
-                } else {
-                    menu.showMenu();
-                }
-            }
-        });
+    private void initView() {
+
+        userHolder = new UserHolder();
+
+        userHolder.title = findViewById(R.id.tv_title);
+        userHolder.icon = findViewById(R.id.civ_icon);
+        userHolder.itemFirst = findViewById(R.id.iv_item_first);
+        userHolder.itemSecond = findViewById(R.id.iv_item_second);
+        mRadioGroup = findViewById(R.id.rg_main);
 
 
-        initTitleRightLayout();
-
-        /*// 初始化AbSqliteStorage
-        mAbSqliteStorage = AbSqliteStorage.getInstance(this);
-        // 初始化数据库操作实现类
-        mUserDao = new UserDao(this);*/
-
-        initFragment();
-        initRadio();
+        userHolder.icon.setOnClickListener(this);
 
 
     }
@@ -134,8 +139,6 @@ public class MainActivity extends AbActivity {
     }
 
     private void initRadio() {
-
-        mRadioGroup = findViewById(R.id.rg_main);
 
 
         mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -276,21 +279,6 @@ public class MainActivity extends AbActivity {
         mMainMenuFragment.initMenu();
     }
 
-    /**
-     * 描述：启动IM服务
-     */
-    public void startIMService(){
-        Log.d("TAG", "----启动IM服务----");
-    }
-
-
-    /**
-     * 描述：关闭IM服务
-     */
-    public void stopIMService(){
-        Log.d("TAG", "----关闭IM服务----");
-    }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode,Intent intent) {
@@ -312,7 +300,7 @@ public class MainActivity extends AbActivity {
         switch (requestCode) {
             case LOGIN_CODE :
                 //登录成功后启动IM服务
-                startIMService();
+                /*startIMService();*/
                 break;
             case CHAT_CODE :
                 //进入会话窗口
@@ -345,7 +333,7 @@ public class MainActivity extends AbActivity {
 
     private void initTitleRightLayout() {
 
-        mAbTitleBar.clearRightView();
+        /*mAbTitleBar.clearRightView();
         View rightViewMore = mInflater.inflate(R.layout.more_btn, null);
         View rightViewApp = mInflater.inflate(R.layout.app_btn, null);
         mAbTitleBar.addRightView(rightViewApp);
@@ -357,8 +345,8 @@ public class MainActivity extends AbActivity {
 
             @Override
             public void onClick(View v) {
-               /* // 应用游戏
-                showApp();*/
+               *//* // 应用游戏
+                showApp();*//*
                Toast.makeText(getApplicationContext(),"one",Toast.LENGTH_SHORT).show();
             }
         });
@@ -367,13 +355,13 @@ public class MainActivity extends AbActivity {
 
             @Override
             public void onClick(View v) {
-               /* Intent intent = new Intent(MainActivity.this,
+               *//* Intent intent = new Intent(MainActivity.this,
                         AboutActivity.class);
-                startActivity(intent);*/
+                startActivity(intent);*//*
                 Toast.makeText(getApplicationContext(),"two",Toast.LENGTH_SHORT).show();
             }
 
-        });
+        });*/
     }
 
     private void showApp() {
@@ -399,32 +387,24 @@ public class MainActivity extends AbActivity {
         Toast.makeText(getApplicationContext(),"进入联系人",Toast.LENGTH_LONG);
     }
 
-    @Override
-    protected void onPause() {
-        initTitleRightLayout();
-        AbLogUtil.d(this, "--onPause--");
-        super.onPause();
-    }
+
 
     @Override
-    protected void onResume() {
-        AbLogUtil.d(this, "--onResume--");
-        super.onResume();
+    public void onClick(View view) {
+
+        switch (view.getId()){
+            case R.id.civ_icon:
+
+                /*Toast.makeText(this, "头像", Toast.LENGTH_SHORT).show();*/
+                menu.showMenu();
+                break;
+        }
     }
-
-    @Override
-    public void finish() {
-        super.finish();
-
-    }
-
 
 
     public class MainHandler extends Handler {
 
         private WeakReference<MainActivity> mActivity;
-
-
 
         public MainHandler(MainActivity activity){
 
@@ -443,6 +423,10 @@ public class MainActivity extends AbActivity {
                     Toast.makeText(getApplicationContext(),"list:"+count,Toast.LENGTH_SHORT).show();
 
                     break;
+                case 1000:
+
+
+                    break;
             }
 
             super.handleMessage(msg);
@@ -453,5 +437,10 @@ public class MainActivity extends AbActivity {
     public MainHandler getHandler(){
         return handler;
     }
+
+    public UserHolder getUserHolder(){
+        return userHolder;
+    }
+
 
 }

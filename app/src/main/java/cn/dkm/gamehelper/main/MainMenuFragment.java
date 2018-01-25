@@ -28,6 +28,7 @@ import com.ab.util.AbAnimationUtil;
 import com.ab.util.AbDialogUtil;
 import com.ab.util.AbFileUtil;
 import com.ab.util.AbToastUtil;
+import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 
 import java.util.ArrayList;
 
@@ -35,6 +36,9 @@ import cn.dkm.gamehelper.MainActivity;
 import cn.dkm.gamehelper.R;
 import cn.dkm.gamehelper.global.MyApplication;
 import cn.dkm.gamehelper.model.User;
+import de.hdodenhof.circleimageview.CircleImageView;
+
+import static android.widget.ExpandableListView.*;
 
 
 /**
@@ -54,10 +58,15 @@ public class MainMenuFragment extends Fragment{
     private OnChangeViewListener mOnChangeViewListener;
     private TextView mNameText;
     private TextView mUserPoint;
-    private ImageView mUserPhoto;
+    private CircleImageView mUserPhoto;
     private ImageView sunshineView;
     private AbImageLoader mAbImageLoader = null;
     private RelativeLayout loginLayout = null;
+
+
+    private TwinklingRefreshLayout refreshLayout;
+
+    private Button quitLogin;
     private User mUser = null;
 
     @Nullable
@@ -67,45 +76,22 @@ public class MainMenuFragment extends Fragment{
         mActivity = (MainActivity) this.getActivity();
 
         View view = inflater.inflate(R.layout.main_menu, null);
-        mMenuListView =  view.findViewById(R.id.menu_list);
-
-        mNameText = view.findViewById(R.id.user_name);
-        mUserPhoto =  view.findViewById(R.id.user_photo);
-        mUserPoint =  view.findViewById(R.id.user_point);
-        sunshineView =  view.findViewById(R.id.sunshineView);
-        loginLayout =  view.findViewById(R.id.login_layout);
-        Button cacheClearBtn =  view.findViewById(R.id.cacheClearBtn);
 
 
-        cacheClearBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AbDialogUtil.showProgressDialog(mActivity,0, "正在清空缓存...");
-                AbTask task = new AbTask();
-                // 定义异步执行的对象
-                final AbTaskItem item = new AbTaskItem();
-                item.setListener(new AbTaskListener() {
 
-                    @Override
-                    public void update() {
-                        AbDialogUtil.removeDialog(mActivity);
-                        AbToastUtil.showToast(mActivity, "缓存已清空完成");
-                    }
 
-                    @Override
-                    public void get() {
-                        try {
-                            AbFileUtil.clearDownloadFile();
-                            AbImageCache.getInstance().clearBitmap();
-                        } catch (Exception e) {
-                            AbToastUtil.showToastInThread(mActivity,
-                                    e.getMessage());
-                        }
-                    };
-                });
-                task.execute(item);
-            }
-        });
+        initView(view);
+        initListener();
+        initData();
+
+
+        return view;
+
+    }
+
+    private void initData() {
+
+        refreshLayout.setPureScrollModeOn();
 
 
         mGroupName = new ArrayList<>();
@@ -122,14 +108,14 @@ public class MainMenuFragment extends Fragment{
             mMenuListView.expandGroup(i);
         }
 
-        mMenuListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+        mMenuListView.setOnGroupClickListener(new OnGroupClickListener() {
 
             public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
                 return true;
             }
         });
 
-        mMenuListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+        /*mMenuListView.setOnChildClickListener(new OnChildClickListener() {
 
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
                 if (mOnChangeViewListener != null) {
@@ -137,7 +123,7 @@ public class MainMenuFragment extends Fragment{
                 }
                 return true;
             }
-        });
+        });*/
 
         // 图片的下载
         mAbImageLoader = new AbImageLoader(mActivity);
@@ -151,9 +137,32 @@ public class MainMenuFragment extends Fragment{
 
         mAbImageLoader.setErrorImage(R.drawable.image_error);
         mAbImageLoader.setEmptyImage(R.drawable.image_empty);
+    }
 
-        return view;
+    private void initListener() {
 
+        quitLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Toast.makeText(mActivity,"退出登陆",Toast.LENGTH_SHORT).show();
+
+            }
+        });
+    }
+
+    private void initView(View view) {
+
+        mMenuListView =  view.findViewById(R.id.menu_list);
+
+        mNameText = view.findViewById(R.id.user_name);
+        mUserPhoto =  view.findViewById(R.id.user_photo);
+        mUserPoint =  view.findViewById(R.id.user_point);
+        sunshineView =  view.findViewById(R.id.sunshineView);
+        loginLayout =  view.findViewById(R.id.login_layout);
+
+        quitLogin =  view.findViewById(R.id.cacheClearBtn);
+        refreshLayout = view.findViewById(R.id.refreshLayout);
     }
 
     public void initMenu() {
@@ -198,13 +207,6 @@ public class MainMenuFragment extends Fragment{
         m6.setText("推荐给好友");
         mChild2.add(m6);
 
-        /*mUser = application.mUser;
-        if (mUser != null) {
-            AbMenuItem m7 = new AbMenuItem();
-            m7.setIconId(R.drawable.quit);
-            m7.setText("注销");
-            mChild2.add(m7);
-        }*/
 
         AbMenuItem m8 = new AbMenuItem();
         m8.setIconId(R.drawable.about);
@@ -256,8 +258,6 @@ public class MainMenuFragment extends Fragment{
             });
         }
 
-       /* final String shareStr = this.getResources().getString(
-                R.string.share_desc);*/
 
        setOnChangeViewListener(new OnChangeViewListener() {
            @Override
@@ -265,40 +265,26 @@ public class MainMenuFragment extends Fragment{
                if (groupPosition == 0) {
                    if (childPosition == 0) {
                        Toast.makeText(getContext(),"联系人",Toast.LENGTH_LONG).show();
-                       // 联系人
-                       /*if (application.mUser == null) {
-                           mActivity.toLogin(mActivity.FRIEND_CODE);
-                       } else {
 
-                           Toast.makeText(getContext(),"ContacterActivity",Toast.LENGTH_LONG).show();
-                          *//* Intent intent = new Intent(mActivity,
-                                   ContacterActivity.class);
-                           mActivity.startActivity(intent);*//*
-                       }*/
                    } else if (childPosition == 1) {
                        // 我的消息
                        Toast.makeText(getContext(),"我的消息",Toast.LENGTH_LONG).show();
-                       /*Intent intent = new Intent(mActivity,
-                               MessageActivity.class);
-                       startActivity(intent);*/
+
                    } else if (childPosition == 2) {
                        // 程序案例
                        Toast.makeText(getContext(),"程序案例",Toast.LENGTH_LONG).show();
-                       /*Intent intent = new Intent(mActivity,
-                               DemoMainActivity.class);
-                       startActivity(intent);*/
+
                    } else if (childPosition == 3) {
                        // 应用游戏
                        Toast.makeText(getContext(),"应用游戏",Toast.LENGTH_LONG).show();
-                      /* mActivity.showApp();*/
+
                    }
                }else if (groupPosition == 1) {
                    if (childPosition == 0) {
                        // 选项、赞助作者
                        Toast.makeText(getContext(),"赞助作者",Toast.LENGTH_LONG).show();
-                     /*  mActivity.showApp();*/
+
                    } else if (childPosition == 1) {
-                       // 推荐
 
                        Toast.makeText(getContext(),"推荐",Toast.LENGTH_LONG).show();
                    } else if (childPosition == 2) {
@@ -312,7 +298,7 @@ public class MainMenuFragment extends Fragment{
                                            // 注销
                                            application.clearLoginParams();
                                            initMenu();
-                                           mActivity.stopIMService();
+
                                        }
 
                                        @Override
@@ -326,19 +312,14 @@ public class MainMenuFragment extends Fragment{
                        } else {
                            // 关于
                            Toast.makeText(getContext(),"关于",Toast.LENGTH_LONG).show();
-                          /* Intent intent = new Intent(mActivity,
-                                   AboutActivity.class);
-                           startActivity(intent);*/
+
                        }
                    } else if (childPosition == 3) {
                        if (application.mUser != null) {
                            Toast.makeText(getContext(),"关于",Toast.LENGTH_LONG).show();
-                           // 关于
-                         /*  Intent intent = new Intent(mActivity,
-                                   AboutActivity.class);
-                           startActivity(intent);*/
+
                        } else {
-                           // 无
+
                        }
                    }
                }

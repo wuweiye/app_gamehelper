@@ -19,6 +19,7 @@ import cn.dkm.gamehelper.model.params.BaseListResult;
 import cn.dkm.gamehelper.model.params.GameLibrary;
 import cn.dkm.gamehelper.model.params.Login;
 import cn.dkm.gamehelper.model.params.LoginResult;
+import cn.dkm.gamehelper.utils.SPUtil;
 import cn.dkm.gamehelper.web.params.GameArticleParams;
 
 import static android.content.ContentValues.TAG;
@@ -92,6 +93,7 @@ public class NetworkWeb {
 
 		String url = getUrl(type);
 
+
 		mAbHttpUtil.post(url, params, new AbStringHttpResponseListener() {
 			@Override
 			public void onSuccess(int statusCode, String content) {
@@ -148,6 +150,14 @@ public class NetworkWeb {
 	public void findQueryList(AbRequestParams params, final UrlConstant.UrlType type, final AbHttpListener abHttpListener){
 
 	/*	String url = getUrl(type);*/
+
+	    //登陆验证
+		String key = SPUtil.getString(mContext,"key","");
+		String userId = SPUtil.getString(mContext,"userId","");
+		String time = SPUtil.getString(mContext, "time", "");
+		params.put("key",key);
+		params.put("userId", userId);
+		params.put("time",time);
 
 		mAbHttpUtil.post(type.getUrl(), params, new AbStringHttpResponseListener() {
 			@Override
@@ -292,12 +302,8 @@ public class NetworkWeb {
 		return url;
 	};
 
-	/**
-	 * 根据post请求
-	 * @param params
-	 * @param url
-	 * @param abHttpListener
-	 */
+
+
 	public void urlPost(AbRequestParams params, String url, final AbHttpListener abHttpListener) {
 
 
