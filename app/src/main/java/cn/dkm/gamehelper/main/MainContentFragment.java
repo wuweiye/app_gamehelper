@@ -159,10 +159,10 @@ public class MainContentFragment extends Fragment {
      * @version v1.0
      */
     public boolean canBack(){
-        if(mWebView.canGoBack()){
+        /*if(mWebView.canGoBack()){
             mWebView.goBack();
             return false;
-        }
+        }*/
         return true;
     }
 }

@@ -63,16 +63,26 @@
             android:textSize="12sp" />
     </LinearLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:orientation="vertical"
         android:gravity="center"
         android:layout_width="80dp"
         android:layout_height="80dp">
 
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/access"
+            android:layout_margin="10dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/access"
+            android:layout_width="55dp"
+            android:layout_height="55dp" />
         <TextView
             android:id="@+id/tv_assent"
+            android:layout_centerInParent="true"
+            android:textColor="@color/white"
+            android:textSize="18sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-    </LinearLayout>
+    </RelativeLayout>
 </LinearLayout>

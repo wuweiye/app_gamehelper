@@ -4,11 +4,14 @@ package cn.dkm.gamehelper.gameInfo.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
 
 import java.util.List;
 
@@ -16,6 +19,9 @@ import cn.dkm.gamehelper.R;
 import cn.dkm.gamehelper.gameInfo.activity.GameDetailActivity;
 import cn.dkm.gamehelper.gameInfo.listener.OnItemClickListener;
 import cn.dkm.gamehelper.model.params.GameLibrary;
+import cn.dkm.gamehelper.web.UrlConstant;
+
+import static com.bumptech.glide.gifdecoder.GifHeaderParser.TAG;
 
 /**
  * Created by Administrator on 2017/12/26.
@@ -45,9 +51,11 @@ public class GamesFragmentAdapter extends RecyclerView.Adapter<GamesFragmentAdap
 
         GameLibrary library = libraries.get(position);
         holder.tv_title.setText(library.getName());
-        //holder.tv_content.setText(library.getContent());
+        holder.tv_content.setText(library.getContent());
 
-        holder.tv_content.setText("测试文字内容测试文字内容测试文字内容测试文字内容测试文字内容");
+
+        Glide.with(mContext).load(UrlConstant.BASE + library.getLogoUrl()).error(R.mipmap.ic_launcher).into(holder.iv_icon);
+        //holder.tv_content.setText("测试文字内容测试文字内容测试文字内容测试文字内容测试文字内容");
         holder.tv_time.setText(library.getUpdateTime());
 
         if(mOnItemClickListener != null){

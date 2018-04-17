@@ -17,4 +17,6 @@ public class GameLibrary extends BaseParams{
     private String name;
 
     private String content;
+
+    private String logoUrl;
 }

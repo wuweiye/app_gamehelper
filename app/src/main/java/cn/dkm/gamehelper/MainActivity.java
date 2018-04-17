@@ -28,7 +28,9 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.dkm.gamehelper.gameInfo.fragment.MainFragment;
 import cn.dkm.gamehelper.gameInfo.fragment.UserFragment;
+import cn.dkm.gamehelper.gameInfo.fragment.game.DetailViewFragment;
 import cn.dkm.gamehelper.gameInfo.holder.UserHolder;
 import cn.dkm.gamehelper.user.dao.UserDao;
 import cn.dkm.gamehelper.gameInfo.fragment.GamesFragment;
@@ -80,10 +82,7 @@ public class MainActivity extends AbActivity implements View.OnClickListener{
         setAbContentView(R.layout.activity_main);
         handler = new MainHandler(this);
 
-
         initMenu();
-
-        
         initView();
         initFragment();
         initRadio();
@@ -98,7 +97,8 @@ public class MainActivity extends AbActivity implements View.OnClickListener{
         // SlidingMenu的配置
         menu = new SlidingMenu(this);
         menu.setMode(SlidingMenu.LEFT);
-        menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
+        //menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
+        menu.setTouchModeAbove(SlidingMenu.TOUCHMODE_NONE);
         menu.setShadowWidthRes(R.dimen.shadow_width);
         menu.setShadowDrawable(R.drawable.shadow);
         menu.setBehindOffsetRes(R.dimen.slidingmenu_offset);
@@ -131,7 +131,7 @@ public class MainActivity extends AbActivity implements View.OnClickListener{
     private void initFragment() {
 
         fragments = new ArrayList<>();
-        fragments.add(mMainContentFragment);
+        fragments.add(new MainFragment());
         fragments.add(new GamesFragment());
         fragments.add(new MoodNotesFragment());
         fragments.add(new MessageFragment());
@@ -164,6 +164,24 @@ public class MainActivity extends AbActivity implements View.OnClickListener{
                 }
 
                 Log.d("====",position +"------");
+
+                if(userHolder != null){
+
+                    if(position == 0){
+                        userHolder.title.setText("首页");
+                    }else if(position == 1){
+
+                        userHolder.title.setText("游戏列表");
+                    }else if(position == 2){
+
+                        userHolder.title.setText("----1--");
+                    }else if (position == 3){
+
+                        userHolder.title.setText("--2--");
+                    }else {
+                        userHolder.title.setText("个人中心");
+                    }
+                }
                 //根据位置取不同的Fragment
                 Fragment baseFragment = getFragment(position);
                 switchFragment(tempFragemnt, baseFragment);

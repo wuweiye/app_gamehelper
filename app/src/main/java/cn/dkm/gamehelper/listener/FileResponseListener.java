@@ -40,6 +40,7 @@ public class FileResponseListener extends AbFileHttpResponseListener {
         Bitmap bitmap= AbFileUtil.getBitmapFromSD(file);
    /*     ImageView view=new ImageView(context);*/
         view.setImageBitmap(bitmap);
+        view.setScaleType(ImageView.ScaleType.FIT_XY);
 
 
         Log.d("=========","onSuccess" + statusCode +"---"+file.getName());
@@ -55,7 +56,7 @@ public class FileResponseListener extends AbFileHttpResponseListener {
     @Override
     public void onProgress(int bytesWritten, int totalSize) {
 
-        Log.d("========","onProgress:" +bytesWritten + "---" +totalSize);
+        //Log.d("========","onProgress:" +bytesWritten + "---" +totalSize);
 
 
     }

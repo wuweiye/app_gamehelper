@@ -17,12 +17,12 @@
         android:orientation="horizontal">
 
         <RadioButton
-            android:id="@+id/rb_home"
+            android:id="@+id/rb_detail"
             style="@style/MainButtonStyle"
             android:text="详情" />
 
         <RadioButton
-            android:id="@+id/rb_type"
+            android:id="@+id/rb_assess"
             style="@style/MainButtonStyle"
             android:text="评价" />
 

@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
+    android:id="@+id/srl_refresh"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="wrap_content"
+    >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <LinearLayout
+                android:id="@+id/ll_item_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:background="#F5F5F5">
+                </View>
+
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycle_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                </android.support.v7.widget.RecyclerView>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:background="#F5F5F5">
+                </View>
+
+            </LinearLayout>
+
+
+            <!--<HorizontalScrollView
+                android:scrollbars="none"
+                android:layout_width="match_parent"
+                android:layout_height="300dp">
+
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="300dp">
+
+                    <ImageView
+                        android:src="@drawable/banner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <ImageView
+                        android:src="@drawable/banner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <ImageView
+                        android:src="@drawable/banner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <ImageView
+                        android:src="@drawable/banner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+
+                </LinearLayout>
+            </HorizontalScrollView>-->
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="#F5F5F5">
+            </View>
+
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="300dp">
+
+            </android.support.v4.view.ViewPager>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:background="#F5F5F5">
+            </View>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:text="简介"
+                    android:drawablePadding="5dp"
+                    android:textColor="@color/black"
+                    android:textSize="22sp"
+                    android:drawableLeft="@drawable/blue_line"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/tv_info_content"
+                    android:maxLines="3"
+                    android:textSize="18sp"
+                    android:padding="10dp"
+                    android:text="撒低级的萨哈杰卡斯的撒低级的\n\n的撒低级的萨哈杰卡斯的撒低\n哈杰卡斯的撒低级的萨哈杰卡斯\n 低级的萨哈杰卡斯的撒低级的萨\n哈杰卡斯的撒低级的萨哈杰卡斯的撒低级的萨哈杰卡斯的\n"
+                    android:textColor="@color/gray"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:id="@+id/tv_show_all"
+                    android:text="显示全部"
+                    android:textColor="@color/Green"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:text="详情"
+                    android:drawablePadding="5dp"
+                    android:textColor="@color/black"
+                    android:textSize="22sp"
+                    android:drawableLeft="@drawable/blue_line"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/tv_info_detail"
+                    android:textSize="18sp"
+                    android:padding="10dp"
+                    android:text="撒低级的萨哈杰卡斯的撒低级的萨哈杰卡斯
+                的撒低级的萨哈杰卡斯的撒低级的萨哈杰卡斯的撒低级的萨
+                哈杰卡斯的撒低级的萨哈杰卡斯的撒低级的萨哈杰卡斯的撒
+                低级的萨哈杰卡斯的撒低级的萨
+                哈杰卡斯的撒低级的萨哈杰卡斯的撒低级的萨哈杰卡斯的////////"
+                    android:textColor="@color/gray"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+
+                <!--<TextView
+                    android:id="@+id/tv_info_detail2"
+                    android:textSize="18sp"
+                    android:padding="10dp"
+                    android:text="&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;\n
+                的撒低级的萨哈杰卡斯的撒低级的萨哈杰卡斯的撒低级的萨\n
+                哈杰卡斯的撒低级的萨哈杰卡斯的撒低级的萨哈杰卡斯的撒\n
+                低级的萨哈杰卡斯的撒低级的萨\n
+                哈杰卡斯的撒低级的萨哈杰卡斯的撒低级的萨哈杰卡斯的"
+                    android:textColor="@color/gray"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />-->
+            </LinearLayout>
+        </LinearLayout>
+
+
+    </ScrollView>
+</com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>

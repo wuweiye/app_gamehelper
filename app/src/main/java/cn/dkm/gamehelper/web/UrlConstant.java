@@ -9,9 +9,13 @@ public class UrlConstant {
 
 
 
-    public static final String BASE = "http://dingkunming.cn/app/";
+    //public static final String BASE = "http://dingkunming.cn/";
+
+    public static final String BASE = "http://169.254.187.73:8866/";
 
     /*public static final String BASE = "http://192.168.1.107:8866/app/";*/
+
+
 
     public static final String GAMES = "games";
 
@@ -29,21 +33,21 @@ public class UrlConstant {
 
 
 
-    public static final String LOGIN_URL = BASE + "user/manage/login";
+    public static final String LOGIN_URL = BASE + "app/user/manage/login";
 
-    public static final String GAMES_URL = BASE + "manage/get/games";
+    public static final String GAMES_URL = BASE + "app/manage/get/games";
 
-    public static final String GAMES_DETAIL_URL = BASE + "game/get/detail";
+    public static final String GAMES_DETAIL_URL = BASE + "app/game/get/detail";
 
-    public static final String ARTICLE_URL = BASE + "/game/article/manage/query";
+    public static final String ARTICLE_URL = BASE + "app/game/article/manage/query";
 
-    public static final String DATA_URL = BASE + "/game/data/manage/query";
+    public static final String DATA_URL = BASE + "app/game/data/manage/query";
 
-    public static final String ITEMS_URL = BASE + "/game/items/query";
+    public static final String ITEMS_URL = BASE + "app/game/items/query";
 
-    public static final String LABEL_URL = BASE + "/game/label/manage/query";
+    public static final String LABEL_URL = BASE + "app/game/label/manage/query";
 
-    public static final String GAME_LABEL_URL = BASE + "/game/label/manage/game/query";
+    public static final String GAME_LABEL_URL = BASE + "app/game/label/manage/game/query";
 
 
     public enum UrlType{

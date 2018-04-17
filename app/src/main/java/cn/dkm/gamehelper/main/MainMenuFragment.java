@@ -77,9 +77,6 @@ public class MainMenuFragment extends Fragment{
 
         View view = inflater.inflate(R.layout.main_menu, null);
 
-
-
-
         initView(view);
         initListener();
         initData();
@@ -163,6 +160,8 @@ public class MainMenuFragment extends Fragment{
 
         quitLogin =  view.findViewById(R.id.cacheClearBtn);
         refreshLayout = view.findViewById(R.id.refreshLayout);
+
+
     }
 
     public void initMenu() {

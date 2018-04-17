@@ -1,12 +1,15 @@
 package cn.dkm.gamehelper.gameInfo.activity;
 
 import android.content.Intent;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,14 +19,22 @@ import com.ab.http.AbHttpUtil;
 import com.ab.http.AbRequestParams;
 import com.ab.util.AbJsonUtil;
 import com.ab.view.titlebar.AbTitleBar;
+import com.bumptech.glide.Glide;
+import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.dkm.gamehelper.R;
+import cn.dkm.gamehelper.gameInfo.fragment.GamesFragment;
+import cn.dkm.gamehelper.gameInfo.fragment.MessageFragment;
+import cn.dkm.gamehelper.gameInfo.fragment.MoodNotesFragment;
+import cn.dkm.gamehelper.gameInfo.fragment.UserFragment;
+import cn.dkm.gamehelper.gameInfo.fragment.game.DetailViewFragment;
 import cn.dkm.gamehelper.global.Constant;
 import cn.dkm.gamehelper.listener.FileResponseListener;
 import cn.dkm.gamehelper.model.params.BaseListResult;
@@ -36,23 +47,35 @@ import cn.dkm.gamehelper.web.result.GameDetailResult;
 public class GameDetailActivity extends AbActivity {
     private final static String TAG = "GameDetailActivity";
 
-    TextView mTvTitle;
-    TextView mTvContent;
+    private TwinklingRefreshLayout refreshLayout;
 
-    TextView mTvNum;
+    private TextView mTvTitle;
+    private TextView mTvContent;
 
-    TextView mTvTime;
+    private TextView mTvNum;
 
-    TextView mTvAssent;
+    private TextView mTvTime;
 
+    private TextView mTvAssent;
 
-    ImageView mIvGameIcon;
+    private ImageView mIvGameIcon;
 
-    @BindView(R.id.iv_icon)
-    ImageView mIvIcon;
+    private ImageView mIvIcon;
 
+    private View itemView;
+
+    private View radioView;
 
     private AbTitleBar mAbTitleBar = null;
+
+    private ArrayList fragments;
+
+    private Fragment tempFragment;
+
+    private RadioGroup mRadioGroup;
+
+
+    private int position = 0;
 
 
     @Override
@@ -70,6 +93,15 @@ public class GameDetailActivity extends AbActivity {
 
     }
 
+    private void initFragment(GameDetailParams gameDetailParams) {
+
+        fragments = new ArrayList<>();
+        fragments.add(new DetailViewFragment(gameDetailParams));
+        fragments.add(new DetailViewFragment(gameDetailParams));
+        fragments.add(new DetailViewFragment(gameDetailParams));
+
+    }
+
 
     private void initView() {
         mTvTitle = findViewById(R.id.tv_title);
@@ -78,21 +110,26 @@ public class GameDetailActivity extends AbActivity {
         mTvNum = findViewById(R.id.tv_num);
         mTvContent = findViewById(R.id.tv_content);
         mIvGameIcon = findViewById(R.id.iv_game_icon);
+        itemView = findViewById(R.id.l_item);
+        mIvIcon = itemView .findViewById(R.id.iv_icon);
+        refreshLayout = findViewById(R.id.srl_refresh);
+        radioView = findViewById(R.id.l_radio);
+
+        mRadioGroup = radioView.findViewById(R.id.rg_main);
+
+        refreshLayout.setPureScrollModeOn();
 
     }
 
     private void initDate() {
 
-
-
-
-
-
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         String gid = bundle.getString("gid");
         String name = bundle.getString("name");
+        String logoUrl = bundle.getString("logoUrl");
         mTvTitle.setText(name);
+        Glide.with(getApplicationContext()).load(UrlConstant.BASE + logoUrl).error(R.mipmap.ic_launcher).into(mIvIcon);
         refreshTask(gid);
 
     }
@@ -126,22 +163,91 @@ public class GameDetailActivity extends AbActivity {
 
     private void initListener() {
 
+        mRadioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
+
+                switch (checkedId){
+                    case R.id.rb_detail:
+                        position = 0;
+                        break;
+                    case R.id.rb_assess:
+                        position = 1;
+                        break;
+                    case R.id.rb_community:
+                        position = 2;
+                        break;
+
+                }
+
+
+                Fragment baseFragment = getFragment(position);
+
+                switchFragment(tempFragment, baseFragment);
+
+            }
+        });
+
+
+    }
+
+    private void switchFragment(Fragment fromFragment, Fragment nextFragment) {
+
+        if (tempFragment != nextFragment) {
+            tempFragment = nextFragment;
+            if (nextFragment != null) {
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                //判断nextFragment是否添加
+                if (!nextFragment.isAdded()) {
+                    //隐藏当前Fragment
+                    if (fromFragment != null) {
+                        transaction.hide(fromFragment);
+                    }
+                    //添加Fragment
+                    transaction.add(R.id.content_frame2, nextFragment).commit();
+                } else {
+                    //隐藏当前Fragment
+                    if (fromFragment != null) {
+                        transaction.hide(fromFragment);
+                    }
+                    transaction.show(nextFragment).commit();
+                }
+
+
+            }
+        }
+    }
+
+    private Fragment getFragment(int position) {
+
+        if (fragments != null && fragments.size() > 0) {
+            Fragment baseFragment = (Fragment) fragments.get(position);
+            return baseFragment;
+        }
+        return null;
+
+
     }
 
     private void freshenView(GameDetailParams gameDetailParams) {
 
-        mTvNum.setText(gameDetailParams.getFiveStarNum() + "人关注");
 
+        mTvNum.setText(gameDetailParams.getFiveStarNum() + "人关注");
         mTvContent.setText("游戏厂商:" + gameDetailParams.getDevelopStore());
-        mTvAssent.setText("100%");
+        mTvAssent.setText(gameDetailParams.getAccessScore());
         String label = "";
         for(int i = 0;i < gameDetailParams.getLabels().size(); i++){
             label += gameDetailParams.getLabels().get(i) +"    ";
         }
         mTvTime.setText(label);
 
+        initFragment(gameDetailParams);
+        mRadioGroup.check(R.id.rb_detail);
+
         AbHttpUtil abHttpUtil = AbHttpUtil.getInstance(getApplicationContext());
         Log.d(TAG, "start image ");
-        abHttpUtil.get(gameDetailParams.getUrlPath(), new FileResponseListener(this,getApplicationContext(),mIvGameIcon));
+        abHttpUtil.get(UrlConstant.BASE + gameDetailParams.getUrlPath(), new FileResponseListener(this,getApplicationContext(),mIvGameIcon));
+
+
     }
 }

@@ -142,6 +142,7 @@ public class GamesFragment extends BaseFragment {
                     intent.setClass(mContext, GameDetailActivity.class);
                     intent.putExtra("gid",libraries.get(position).getGid());
                     intent.putExtra("name",libraries.get(position).getName());
+                    intent.putExtra("logoUrl", libraries.get(position).getLogoUrl());
 
                     startActivity(intent);
                 }

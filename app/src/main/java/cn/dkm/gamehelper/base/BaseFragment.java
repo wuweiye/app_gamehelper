@@ -152,8 +152,15 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        MainActivity  mainActivity = (MainActivity) context;
-        this.mHandler = mainActivity.getHandler();
-        this.mUserHolder = mainActivity.getUserHolder();
+        try {
+
+            MainActivity  mainActivity = (MainActivity) context;
+            this.mHandler = mainActivity.getHandler();
+            this.mUserHolder = mainActivity.getUserHolder();
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 }
