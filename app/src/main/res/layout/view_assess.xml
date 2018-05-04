@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout android:id="@+id/srl_refresh"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="#F5F5F5">
+            </View>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_marginTop="20dp"
+                        android:id="@+id/tv_gameAssess"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:text="游戏评分"
+                        android:textColor="@color/black"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/tv_gameAssessScore"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/tv_gameAssess"
+                        android:text="7.0"
+                        android:layout_marginLeft="40dp"
+                        android:textColor="@color/blue"
+                        android:textSize="28sp" />
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_marginLeft="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="vertical">
+
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:drawableRight="@drawable/star"
+                            android:text="5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <ProgressBar
+                            android:layout_marginRight="20dp"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_marginLeft="5dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/pb_progress_bar_5"
+                            android:max="100"
+                            android:progress="50"
+                            android:progressDrawable="@drawable/assess_progress_bar"
+                            />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:drawableRight="@drawable/star"
+                            android:text="4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <ProgressBar
+                            android:layout_marginRight="20dp"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="match_parent"
+                            android:layout_marginLeft="5dp"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/pb_progress_bar_4"
+                            android:max="100"
+                            android:progress="30"
+                            android:progressDrawable="@drawable/assess_progress_bar"
+                            />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:drawableRight="@drawable/star"
+                            android:text="3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <ProgressBar
+                            android:layout_marginRight="20dp"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:id="@+id/pb_progress_bar_3"
+                            android:max="100"
+                            android:progress="10"
+                            android:progressDrawable="@drawable/assess_progress_bar"
+                            />
+
+                    </LinearLayout><LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:drawableRight="@drawable/star"
+                        android:text="2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <ProgressBar
+                        android:layout_marginRight="20dp"
+                        android:layout_marginLeft="5dp"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/pb_progress_bar_2"
+                        android:max="100"
+                        android:progress="10"
+                        android:progressDrawable="@drawable/assess_progress_bar"
+                        />
+
+                </LinearLayout>
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:drawableRight="@drawable/star"
+                            android:text="1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <ProgressBar
+                            android:layout_marginRight="20dp"
+                            android:layout_marginLeft="5dp"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/pb_progress_bar_1"
+                            android:max="100"
+                            android:progress="10"
+                            android:progressDrawable="@drawable/assess_progress_bar"
+                            />
+
+
+                    </LinearLayout>
+
+
+
+                </LinearLayout>
+
+
+
+
+
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:background="#F5F5F5">
+            </View>
+
+
+
+
+            <LinearLayout
+                android:id="@+id/noAssess"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/user_photo_icon"
+                    android:layout_marginTop="20dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/photo01"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:text="1122"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:layout_marginTop="5dp"
+                    android:layout_gravity="center"
+                    android:id="@+id/tv_user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <RatingBar
+                    android:id="@+id/ratingBarId"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:numStars="5"
+                    android:stepSize="1.0"
+                    android:rating="0" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/assess"
+                android:visibility="gone"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/iv_user_icon"
+                        android:layout_width="60dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="20dp"
+                        android:src="@drawable/photo01"
+                        android:layout_height="60dp" />
+
+
+                    <LinearLayout
+                        android:layout_toRightOf="@id/iv_user_icon"
+                        android:layout_marginLeft="10dp"
+                        android:orientation="vertical"
+                        android:layout_width="200dp"
+                        android:layout_height="match_parent">
+                        <RelativeLayout
+
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/tv_name"
+                                android:layout_marginTop="25dp"
+                                android:text="112233"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                            <TextView
+                                android:id="@+id/tv_update"
+                                android:textColor="@color/blue"
+                                android:layout_marginTop="25dp"
+                                android:layout_alignParentRight="true"
+                                android:layout_marginRight="20dp"
+                                android:text="修改"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+                        </RelativeLayout>
+
+
+                        <cn.dkm.gamehelper.view.RatingBar
+                            android:id="@+id/rb_assess"
+                            android:layout_marginTop="5dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:starCount="5"
+                            app:starEmpty="@drawable/white"
+                            app:starFill="@drawable/star"
+                            app:starHalf="@drawable/star"
+                            app:starImageSize="20dp"
+                            app:starStep="1"
+                            app:stepSize="Half"  />
+                    </LinearLayout>
+
+
+
+
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/tv_content"
+                    android:maxLines="3"
+                    android:textSize="18sp"
+                    android:padding="10dp"
+                    android:text="112233"
+                    android:textColor="@color/gray"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="#F5F5F5">
+            </View>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:text="用户评价"
+                    android:layout_marginLeft="20dp"
+                    android:drawablePadding="5dp"
+                    android:textColor="@color/black"
+                    android:textSize="22sp"
+                    android:drawableLeft="@drawable/blue_line"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycle_assess"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
+</com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>

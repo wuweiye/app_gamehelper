@@ -7,6 +7,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.ab.fragment.AbDialogFragment;
 import com.ab.fragment.AbLoadDialogFragment;
@@ -105,6 +106,8 @@ public class GamesFragment extends BaseFragment {
             @Override
             public void onFailure(String content) {
 
+                Log.d(TAG, "onFailure: 网络连接失败");
+                Toast.makeText(mContext,"网络连接失败",Toast.LENGTH_LONG).show();
             }
 
             @Override

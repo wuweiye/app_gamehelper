@@ -65,13 +65,14 @@
     <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
         android:id="@+id/refreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <LinearLayout
+            android:id="@+id/ll_table"
             android:orientation="vertical"
             android:gravity="center_horizontal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
             <TextView
                 android:layout_marginTop="15dp"
                 android:paddingLeft="10dp"
@@ -123,11 +124,32 @@
                 android:layout_height="wrap_content" />
         </LinearLayout>
 
+        <LinearLayout
+
+            android:layout_below="@id/ll_table"
+            android:id="@+id/btnLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="30dp"
+            android:orientation="vertical" >
+
+            <Button
+                android:id="@+id/cacheClearBtn"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/login_button"
+                android:text="@string/quit_login"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+        </LinearLayout>
     </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
 
 
 
-    <ExpandableListView
+
+    <!--<ExpandableListView
         android:id="@+id/menu_list"
         android:visibility="gone"
         android:layout_width="fill_parent"
@@ -162,6 +184,6 @@
             android:text="@string/quit_login"
             android:textColor="@color/white"
             android:textSize="20sp" />
-    </LinearLayout>
+    </LinearLayout>-->
 
 </LinearLayout>

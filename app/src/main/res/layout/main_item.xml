@@ -2,17 +2,178 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="10dp"
+    android:background="@color/gray_white"
     android:orientation="vertical"
     android:gravity="center">
 
 
-    <TextView
+    <!--<TextView
         android:id="@+id/tv_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/blue"
         android:padding="10dp"
-        android:text="策略" />
+        android:text="策略" />-->
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/iv_background"
+            android:src="@drawable/wanxiang2"
+            android:scaleType="fitXY"
+            android:layout_margin="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="250dp" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_marginLeft="15dp"
+                android:textSize="25sp"
+                android:text="万象物语"
+                android:textColor="@color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <RelativeLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_type"
+                    android:layout_marginLeft="15dp"
+                    android:text="来自编辑的推荐"
+                    android:textSize="15sp"
+                    android:textColor="@color/gray"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/tv_assess_count"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="55dp"
+                    android:text="1条评价"
+                    android:textSize="15sp"
+                    android:textColor="@color/gray"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:textSize="13sp"
+                    android:id="@+id/tv_assess_star"
+                    android:layout_marginRight="15dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/blue"
+                    android:padding="2dp"
+                    android:text="8.0" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tv_assess"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginBottom="10dp"
+                android:textSize="15sp"
+                android:textColor="@color/black"
+                android:text="雷亚首部RGB手游，开启冒险之旅。"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+
+            android:src="@drawable/bg_bl"
+            android:scaleType="fitXY"
+            android:layout_margin="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="250dp" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+
+                android:layout_marginLeft="15dp"
+                android:textSize="25sp"
+                android:text="碧蓝航线"
+                android:textColor="@color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <RelativeLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+
+                    android:layout_marginLeft="15dp"
+                    android:text="来自编辑的推荐"
+                    android:textSize="15sp"
+                    android:textColor="@color/gray"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="55dp"
+                    android:text="10条评价"
+                    android:textSize="15sp"
+                    android:textColor="@color/gray"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:textSize="13sp"
+
+                    android:layout_marginRight="15dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/blue"
+                    android:padding="2dp"
+                    android:text="9.0" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginBottom="10dp"
+                android:textSize="15sp"
+                android:textColor="@color/black"
+                android:text="自由化的海上战斗"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
 
 </LinearLayout>
 

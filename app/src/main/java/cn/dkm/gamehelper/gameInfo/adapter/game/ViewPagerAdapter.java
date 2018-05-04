@@ -23,6 +23,7 @@ public class ViewPagerAdapter extends PagerAdapter {
     public ViewPagerAdapter(Context context, List<String> list) {
         this.context=context;
         this.list=list;
+
         ImageLoader.getInstance().init(ImageLoaderConfiguration.createDefault(context));
 
     }
@@ -41,9 +42,13 @@ public class ViewPagerAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         ImageView imageView=new ImageView(context);
-        ImageLoader.getInstance().displayImage(list.get(position%list.size()),imageView);
-        imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-        container.addView(imageView);
+        if(list.size() != 0){
+            ImageLoader.getInstance().displayImage(list.get(position%list.size()),imageView);
+            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+            container.addView(imageView);
+        }
+
+
 
         return imageView;
     }

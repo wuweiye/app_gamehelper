@@ -2,12 +2,11 @@ package cn.dkm.gamehelper.gameInfo.fragment;
 
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.ab.http.AbHttpListener;
@@ -16,11 +15,6 @@ import com.ab.task.AbTask;
 import com.ab.task.AbTaskItem;
 import com.ab.task.AbTaskListener;
 import com.ab.util.AbDialogUtil;
-import com.ab.util.AbJsonUtil;
-import com.bumptech.glide.Glide;
-import com.youth.banner.Banner;
-import com.youth.banner.loader.ImageLoader;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +26,7 @@ import cn.dkm.gamehelper.gameInfo.adapter.MainFragmentAdapter;
 import cn.dkm.gamehelper.gameInfo.listener.OnItemClickListener;
 import cn.dkm.gamehelper.model.params.BaseListResult;
 import cn.dkm.gamehelper.model.params.GameLibrary;
+import cn.dkm.gamehelper.view.MyScrollView;
 import cn.dkm.gamehelper.web.NetworkWeb;
 import cn.dkm.gamehelper.web.UrlConstant;
 
@@ -48,7 +43,8 @@ public class MainFragment extends BaseFragment {
 
     private RecyclerView recyclerView;
     private MainFragmentAdapter adapter;
-    private Banner banner;
+    private MyScrollView mScrollView;
+    private RelativeLayout mSearch;
 
     //@SuppressWarnings("unchecked")
     @Override
@@ -57,8 +53,8 @@ public class MainFragment extends BaseFragment {
 
         View view = View.inflate(mContext, R.layout.fragment_main, null);
         recyclerView = view.findViewById(R.id.rv_recycle);
-        banner = view.findViewById(R.id.banner);
-
+        mScrollView = view.findViewById(R.id.sv_scroll);
+        mSearch = view.findViewById(R.id.rl_search);
         setAbPullToRefreshView(view, false, false);
 
         return view;
@@ -84,6 +80,7 @@ public class MainFragment extends BaseFragment {
 
         super.initDate();
         mUserHolder.title.setText("首页");
+        mUserHolder.itemSecond.setImageResource(R.drawable.search);
         initBanner();
         initListener();
         //getDataFromNet();
@@ -103,19 +100,7 @@ public class MainFragment extends BaseFragment {
 
     private void initBanner() {
 
-        List<Integer> list = new ArrayList<>();
 
-        list.add(R.drawable.banner);
-        list.add(R.drawable.banner);
-        list.add(R.drawable.banner);
-        list.add(R.drawable.banner);
-
-        banner.setImages(list).setImageLoader(new ImageLoader() {
-            @Override
-            public void displayImage(Context context, Object path, ImageView imageView) {
-                Glide.with(context).load(path).into(imageView);
-            }
-        }).start();
 
 
 
@@ -127,6 +112,24 @@ public class MainFragment extends BaseFragment {
     private void initListener() {
 
 
+        /*mScrollView.setOnScrollListener(new MyScrollView.OnScrollListener() {
+            @Override
+            public void onScrollChanged(MyScrollView scrollView, int x, int y, int oldx, int oldy) {
+
+                Log.d("onScrollChanged","onScrollChanged");
+
+                if (y <= 650){
+                    if (y   >=300){
+                        mSearch.setClickable(false);
+                    }else {
+                        mSearch.setClickable(true);
+                    }
+                    float v = 1 - (float) y / 650;
+
+                    mSearch.setAlpha(v);
+                }
+            }
+        });*/
 
     }
 
@@ -158,10 +161,7 @@ public class MainFragment extends BaseFragment {
 
             @Override
             public void onSuccess(String content) {
-            /*
-                BaseListResult baseListResult = (BaseListResult) AbJsonUtil.fromJson(content, BaseListResult.class);
-                List<String> list = baseListResult.getRows();
-                processData(list);*/
+
             }
         });
 
@@ -173,7 +173,7 @@ public class MainFragment extends BaseFragment {
 
             adapter = new MainFragmentAdapter(mContext, libraries);
 
-            recyclerView.setLayoutManager(new GridLayoutManager(mContext, 4));
+            recyclerView.setLayoutManager(new GridLayoutManager(mContext, 1));
 
             recyclerView.setAdapter(adapter);
             adapter.setOnItemClickListener(new OnItemClickListener() {

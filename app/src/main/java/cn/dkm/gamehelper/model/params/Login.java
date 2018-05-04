@@ -14,6 +14,8 @@ public class Login {
 
     private String resultMessage;
 
+    private String userName;
+
     private String userId;
 
     private String time;

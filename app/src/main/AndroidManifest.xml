@@ -26,7 +26,11 @@
         <activity android:name=".login.LoginActivity" />
         <activity android:name=".login.AboutActivity" />
         <activity android:name=".gameInfo.activity.GameDetailActivity" />
-        <activity android:name=".gameInfo.activity.UserActivity"></activity>
+        <activity android:name=".gameInfo.activity.UserActivity" />
+        <activity android:name=".gameInfo.activity.AssessActivity">
+
+
+        </activity>
     </application>
 
 </manifest>

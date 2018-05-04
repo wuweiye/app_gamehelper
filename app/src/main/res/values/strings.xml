@@ -3,4 +3,6 @@
 
     <string name="clear_cache">清空缓存</string>
     <string name="quit_login">退出登陆</string>
+
+    <string name="assess">   请写下你宝贵的意见</string>
 </resources>

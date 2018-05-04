@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
+        xmlns:gyf="http://schemas.android.com/tools"
+        android:id="@+id/trl_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        gyf:tr_head_height="100dp"
+        gyf:tr_wave_height="180dp">
+
+        <cn.dkm.gamehelper.view.MyScrollView
+            android:id="@+id/sv_scroll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.youth.banner.Banner
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/banner"
+                    android:layout_width="match_parent"
+                    app:indicator_drawable_selected="@drawable/dot_focused"
+                    app:indicator_drawable_unselected="@drawable/dot_normal"
+                    android:layout_height="203dp">
+
+                </com.youth.banner.Banner>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="7dp"
+                    android:background="#F5F5F5"></View>
+
+
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_item"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp">
+
+                </android.support.v7.widget.RecyclerView>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="14dp"
+                    android:background="#F5F5F5" />
+
+                <include layout="@layout/infomation_bulletin"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="14dp"
+                    android:background="#F5F5F5" />
+
+                <include
+                    android:id="@+id/course_first"
+                    layout="@layout/course"/>
+
+                <include
+                    android:id="@+id/course_second"
+                    layout="@layout/course"/>
+
+                <include
+                    android:id="@+id/course_third"
+                    layout="@layout/course"/>
+
+            </LinearLayout>
+
+
+
+        </cn.dkm.gamehelper.view.MyScrollView>
+
+    </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_search"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:background="@drawable/search_bg"
+        android:layout_marginTop="25dp"
+        android:layout_marginRight="64dp"
+        android:layout_marginLeft="64dp"
+        android:layout_height="32dp">
+
+        <ImageView
+            android:id="@+id/iv_search"
+            android:src="@drawable/search"
+            android:layout_width="wrap_content"
+
+            android:layout_marginRight="10dp"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:hint="课程、视频"
+            android:layout_toRightOf="@id/iv_search"
+            android:textColor="#999999"
+            android:textSize="15sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+
+
+</android.support.design.widget.CoordinatorLayout>

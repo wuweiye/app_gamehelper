@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/iv_user_icon"
+                android:layout_width="60dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:src="@drawable/photo01"
+                android:layout_height="60dp" />
+
+
+            <LinearLayout
+                android:layout_toRightOf="@id/iv_user_icon"
+                android:layout_marginLeft="10dp"
+                android:orientation="vertical"
+                android:layout_width="200dp"
+                android:layout_height="match_parent">
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_marginTop="25dp"
+                    android:text="蓝河"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <cn.dkm.gamehelper.view.RatingBar
+                    android:id="@+id/rb_assess"
+                    android:layout_marginTop="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:starCount="5"
+                    app:starEmpty="@drawable/white"
+                    app:starFill="@drawable/star"
+                    app:starHalf="@drawable/star"
+                    app:starImageSize="20dp"
+                    app:starStep="1"
+                    app:stepSize="Half"  />
+            </LinearLayout>
+
+
+
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_content"
+            android:maxLines="3"
+            android:textSize="18sp"
+            android:padding="10dp"
+            android:text="1111111111111111111\n\n2222222222222222\n3333333333333333333333333333\n444444444444444444\n555555555555555555555555\n"
+            android:textColor="@color/gray"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="#F5F5F5">
+    </View>
+
+</LinearLayout>

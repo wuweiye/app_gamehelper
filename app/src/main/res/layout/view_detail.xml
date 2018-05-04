@@ -7,9 +7,12 @@
     android:layout_height="wrap_content"
     >
 
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+
 
         <LinearLayout
             android:orientation="vertical"
@@ -168,18 +171,7 @@
                     android:layout_height="match_parent" />
 
 
-                <!--<TextView
-                    android:id="@+id/tv_info_detail2"
-                    android:textSize="18sp"
-                    android:padding="10dp"
-                    android:text="&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;\n
-                的撒低级的萨哈杰卡斯的撒低级的萨哈杰卡斯的撒低级的萨\n
-                哈杰卡斯的撒低级的萨哈杰卡斯的撒低级的萨哈杰卡斯的撒\n
-                低级的萨哈杰卡斯的撒低级的萨\n
-                哈杰卡斯的撒低级的萨哈杰卡斯的撒低级的萨哈杰卡斯的"
-                    android:textColor="@color/gray"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />-->
+
             </LinearLayout>
         </LinearLayout>
 

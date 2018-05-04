@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,9 +37,11 @@ import cn.dkm.gamehelper.MainActivity;
 import cn.dkm.gamehelper.R;
 import cn.dkm.gamehelper.global.MyApplication;
 import cn.dkm.gamehelper.model.User;
+import cn.dkm.gamehelper.utils.SPUtil;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.widget.ExpandableListView.*;
+import static com.ab.network.toolbox.VolleyLog.TAG;
 
 
 /**
@@ -91,36 +94,6 @@ public class MainMenuFragment extends Fragment{
         refreshLayout.setPureScrollModeOn();
 
 
-        mGroupName = new ArrayList<>();
-        mChild1 = new ArrayList<>();
-        mChild2 = new ArrayList<>();
-
-        ArrayList<ArrayList<AbMenuItem>> mChilds = new ArrayList<>();
-        mChilds.add(mChild1);
-        mChilds.add(mChild2);
-
-        mAdapter = new LeftMenuAdapter(mActivity, mGroupName, mChilds);
-        mMenuListView.setAdapter(mAdapter);
-        for (int i = 0; i < mGroupName.size(); i++) {
-            mMenuListView.expandGroup(i);
-        }
-
-        mMenuListView.setOnGroupClickListener(new OnGroupClickListener() {
-
-            public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
-                return true;
-            }
-        });
-
-        /*mMenuListView.setOnChildClickListener(new OnChildClickListener() {
-
-            public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-                if (mOnChangeViewListener != null) {
-                    mOnChangeViewListener.onChangeView(groupPosition, childPosition);
-                }
-                return true;
-            }
-        });*/
 
         // 图片的下载
         mAbImageLoader = new AbImageLoader(mActivity);
@@ -142,7 +115,14 @@ public class MainMenuFragment extends Fragment{
             @Override
             public void onClick(View view) {
 
-                Toast.makeText(mActivity,"退出登陆",Toast.LENGTH_SHORT).show();
+
+                SPUtil.putString(getContext(),"status","loginError");
+                SPUtil.putString(getContext(),"userId","");
+                SPUtil.putString(getContext(),"time","");
+                SPUtil.putString(getContext(),"key","");
+                SPUtil.putString(getContext(),"userName","");
+                initMenu();
+                Toast.makeText(mActivity,"已经退出登陆",Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -150,7 +130,7 @@ public class MainMenuFragment extends Fragment{
 
     private void initView(View view) {
 
-        mMenuListView =  view.findViewById(R.id.menu_list);
+        //mMenuListView =  view.findViewById(R.id.menu_list);
 
         mNameText = view.findViewById(R.id.user_name);
         mUserPhoto =  view.findViewById(R.id.user_photo);
@@ -166,57 +146,10 @@ public class MainMenuFragment extends Fragment{
 
     public void initMenu() {
 
-        mGroupName.clear();
-        mChild1.clear();
-        mChild2.clear();
 
-        mGroupName.add("常用");
-        mGroupName.add("操作");
-
-        AbMenuItem m0 = new AbMenuItem();
-        m0.setIconId(R.drawable.square);
-        m0.setText("联系人");
-        mChild1.add(m0);
-
-
-        AbMenuItem m3 = new AbMenuItem();
-        m3.setIconId(R.drawable.share);
-        m3.setText("程序案例");
-        mChild1.add(m3);
-
-        AbMenuItem m1 = new AbMenuItem();
-        m1.setIconId(R.drawable.square);
-        m1.setText("我的消息");
-        mChild1.add(m1);
-
-
-
-        AbMenuItem m4 = new AbMenuItem();
-        m4.setIconId(R.drawable.app);
-        m4.setText("应用游戏");
-        mChild1.add(m4);
-
-        AbMenuItem m5 = new AbMenuItem();
-        m5.setIconId(R.drawable.set);
-        m5.setText("支持我");
-        mChild2.add(m5);
-
-        AbMenuItem m6 = new AbMenuItem();
-        m6.setIconId(R.drawable.recommend);
-        m6.setText("推荐给好友");
-        mChild2.add(m6);
-
-
-        AbMenuItem m8 = new AbMenuItem();
-        m8.setIconId(R.drawable.about);
-        m8.setText("关于");
-        mChild2.add(m8);
-        mAdapter.notifyDataSetChanged();
-        for (int i = 0; i < mGroupName.size(); i++) {
-            mMenuListView.expandGroup(i);
-        }
-
-        if (mUser == null) {
+        Log.d(TAG, "initMenu: -----------------------");
+        String status = SPUtil.getString(getContext(),"status","loginError");
+        if (!status.equals("login")) {
             setNameText("登录");
             setUserPhoto(R.drawable.photo01);
             setUserPoint("0");
@@ -231,99 +164,20 @@ public class MainMenuFragment extends Fragment{
                 }
             });
         }else {
-            setNameText(mUser.getUserName());
-            downSetPhoto(mUser.getHeadUrl());
-            if ("MAN".equals(mUser.getSex())) {
-                Drawable d = mActivity.getResources().getDrawable(
-                        R.drawable.user_info_male);
-                d.setBounds(0, 0, 26, 26);
-                mNameText.setCompoundDrawables(null, null, d, null);
-            } else if ("WOMAN".equals(mUser.getSex())) {
-                Drawable d = mActivity.getResources().getDrawable(
-                        R.drawable.user_info_female);
-                d.setBounds(0, 0, 26, 26);
-                mNameText.setCompoundDrawables(null, null, d, null);
-            } else {
-                mNameText.setCompoundDrawables(null, null, null, null);
-            }
-
-            setUserPoint(String.valueOf(mUser.getPoint()));
+            setNameText(SPUtil.getString(getContext(),"userName","未知"));
+            setUserPhoto(R.drawable.photo01);
             loginLayout.setOnClickListener(new View.OnClickListener() {
 
                 @Override
                 public void onClick(View arg0) {
+
 
                 }
             });
         }
 
 
-       setOnChangeViewListener(new OnChangeViewListener() {
-           @Override
-           public void onChangeView(int groupPosition, int childPosition) {
-               if (groupPosition == 0) {
-                   if (childPosition == 0) {
-                       Toast.makeText(getContext(),"联系人",Toast.LENGTH_LONG).show();
 
-                   } else if (childPosition == 1) {
-                       // 我的消息
-                       Toast.makeText(getContext(),"我的消息",Toast.LENGTH_LONG).show();
-
-                   } else if (childPosition == 2) {
-                       // 程序案例
-                       Toast.makeText(getContext(),"程序案例",Toast.LENGTH_LONG).show();
-
-                   } else if (childPosition == 3) {
-                       // 应用游戏
-                       Toast.makeText(getContext(),"应用游戏",Toast.LENGTH_LONG).show();
-
-                   }
-               }else if (groupPosition == 1) {
-                   if (childPosition == 0) {
-                       // 选项、赞助作者
-                       Toast.makeText(getContext(),"赞助作者",Toast.LENGTH_LONG).show();
-
-                   } else if (childPosition == 1) {
-
-                       Toast.makeText(getContext(),"推荐",Toast.LENGTH_LONG).show();
-                   } else if (childPosition == 2) {
-                       if (mUser != null) {
-                           AbDialogUtil.showAlertDialog(mActivity, "注销",
-                                   "确定要注销该用户吗?",
-                                   new AbAlertDialogFragment.AbDialogOnClickListener() {
-
-                                       @Override
-                                       public void onPositiveClick() {
-                                           // 注销
-                                           application.clearLoginParams();
-                                           initMenu();
-
-                                       }
-
-                                       @Override
-                                       public void onNegativeClick() {
-                                           // TODO Auto-generated method stub
-
-                                       }
-
-                                   });
-
-                       } else {
-                           // 关于
-                           Toast.makeText(getContext(),"关于",Toast.LENGTH_LONG).show();
-
-                       }
-                   } else if (childPosition == 3) {
-                       if (application.mUser != null) {
-                           Toast.makeText(getContext(),"关于",Toast.LENGTH_LONG).show();
-
-                       } else {
-
-                       }
-                   }
-               }
-           }
-       });
     }
 
     public interface OnChangeViewListener {

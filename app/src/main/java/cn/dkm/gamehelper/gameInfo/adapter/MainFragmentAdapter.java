@@ -40,8 +40,8 @@ public class MainFragmentAdapter extends RecyclerView.Adapter<MainFragmentAdapte
     @Override
     public void onBindViewHolder(final MainHolder holder, int position) {
 
-        String name = gameTypeNames.get(position);
-        holder.tv_name.setText(name);
+        /*String name = gameTypeNames.get(position);
+        holder.tv_name.setText(name);*/
 
         if(mOnItemClickListener != null){
             holder.itemView.setOnClickListener(new View.OnClickListener() {

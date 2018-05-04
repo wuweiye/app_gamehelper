@@ -30,6 +30,7 @@ import cn.dkm.gamehelper.utils.SPUtil;
 import cn.dkm.gamehelper.web.NetworkWeb;
 import cn.dkm.gamehelper.web.UrlConstant;
 
+
 public class LoginActivity extends AppCompatActivity {
 
 
@@ -122,6 +123,8 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void onFailure(String s) {
 
+                   loginError();
+
                     Toast.makeText(getApplicationContext(), "网络失败,请检测网络！", Toast.LENGTH_SHORT).show();
                 }
 
@@ -142,6 +145,14 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    private void loginError() {
+        SPUtil.putString(getApplicationContext(),"status","loginError");
+        SPUtil.putString(getApplicationContext(),"userId","");
+        SPUtil.putString(getApplicationContext(),"time","");
+        SPUtil.putString(getApplicationContext(),"key","");
+        SPUtil.putString(getApplicationContext(),"userName","");
+    }
+
     private void processData(Login login) {
 
 
@@ -152,14 +163,20 @@ public class LoginActivity extends AppCompatActivity {
             SPUtil.putString(getApplicationContext(),"userId",login.getUserId());
             SPUtil.putString(getApplicationContext(),"time",login.getTime());
             SPUtil.putString(getApplicationContext(),"key",login.getKey());
+            SPUtil.putString(getApplicationContext(),"userName",login.getUserName());
 
             Intent intent = new Intent();
             intent.putExtra("result", "success");
-            setResult(1001, intent);
+            setResult(UrlConstant.LOGIN_SUCCESS, intent);
             finish();
 
         }else {
 
+            SPUtil.putString(getApplicationContext(),"status","loginError");
+            SPUtil.putString(getApplicationContext(),"userId","");
+            SPUtil.putString(getApplicationContext(),"time","");
+            SPUtil.putString(getApplicationContext(),"key","");
+            SPUtil.putString(getApplicationContext(),"userName","");
             Toast.makeText(getApplicationContext(),"登陆失败,失败原因：" + login.getResultMessage(), Toast.LENGTH_SHORT).show();
         }
 

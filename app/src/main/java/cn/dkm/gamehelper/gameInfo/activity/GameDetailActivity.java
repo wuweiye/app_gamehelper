@@ -34,6 +34,7 @@ import cn.dkm.gamehelper.gameInfo.fragment.GamesFragment;
 import cn.dkm.gamehelper.gameInfo.fragment.MessageFragment;
 import cn.dkm.gamehelper.gameInfo.fragment.MoodNotesFragment;
 import cn.dkm.gamehelper.gameInfo.fragment.UserFragment;
+import cn.dkm.gamehelper.gameInfo.fragment.game.AssessViewFragment;
 import cn.dkm.gamehelper.gameInfo.fragment.game.DetailViewFragment;
 import cn.dkm.gamehelper.global.Constant;
 import cn.dkm.gamehelper.listener.FileResponseListener;
@@ -66,6 +67,12 @@ public class GameDetailActivity extends AbActivity {
 
     private View radioView;
 
+    private View mGameBar;
+
+    private ImageView mQuit;
+
+    private TextView mGameName;
+
     private AbTitleBar mAbTitleBar = null;
 
     private ArrayList fragments;
@@ -73,6 +80,8 @@ public class GameDetailActivity extends AbActivity {
     private Fragment tempFragment;
 
     private RadioGroup mRadioGroup;
+
+
 
 
     private int position = 0;
@@ -97,7 +106,7 @@ public class GameDetailActivity extends AbActivity {
 
         fragments = new ArrayList<>();
         fragments.add(new DetailViewFragment(gameDetailParams));
-        fragments.add(new DetailViewFragment(gameDetailParams));
+        fragments.add(new AssessViewFragment(gameDetailParams));
         fragments.add(new DetailViewFragment(gameDetailParams));
 
     }
@@ -115,6 +124,10 @@ public class GameDetailActivity extends AbActivity {
         refreshLayout = findViewById(R.id.srl_refresh);
         radioView = findViewById(R.id.l_radio);
 
+        mGameBar = findViewById(R.id.game_bar);
+        mQuit = mGameBar.findViewById(R.id.civ_icon);
+        mGameName = mGameBar.findViewById(R.id.tv_name);
+
         mRadioGroup = radioView.findViewById(R.id.rg_main);
 
         refreshLayout.setPureScrollModeOn();
@@ -129,7 +142,8 @@ public class GameDetailActivity extends AbActivity {
         String name = bundle.getString("name");
         String logoUrl = bundle.getString("logoUrl");
         mTvTitle.setText(name);
-        Glide.with(getApplicationContext()).load(UrlConstant.BASE + logoUrl).error(R.mipmap.ic_launcher).into(mIvIcon);
+        mGameName.setText(name);
+        Glide.with(getApplicationContext()).load(UrlConstant.BASE + logoUrl).error(R.drawable.bl_icon).into(mIvIcon);
         refreshTask(gid);
 
     }
@@ -188,6 +202,13 @@ public class GameDetailActivity extends AbActivity {
             }
         });
 
+        mQuit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
 
     }
 
@@ -232,13 +253,17 @@ public class GameDetailActivity extends AbActivity {
     private void freshenView(GameDetailParams gameDetailParams) {
 
 
+
         mTvNum.setText(gameDetailParams.getFiveStarNum() + "人关注");
         mTvContent.setText("游戏厂商:" + gameDetailParams.getDevelopStore());
         mTvAssent.setText(gameDetailParams.getAccessScore());
         String label = "";
-        for(int i = 0;i < gameDetailParams.getLabels().size(); i++){
-            label += gameDetailParams.getLabels().get(i) +"    ";
+        if(gameDetailParams.getLabels() != null){
+            for(int i = 0;i < gameDetailParams.getLabels().size(); i++){
+                label += gameDetailParams.getLabels().get(i) +"    ";
+            }
         }
+
         mTvTime.setText(label);
 
         initFragment(gameDetailParams);

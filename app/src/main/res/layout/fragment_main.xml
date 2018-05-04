@@ -1,41 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.ab.view.pullview.AbPullToRefreshView xmlns:android="http://schemas.android.com/apk/res/android"
+
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+
     android:layout_width="match_parent"
-    android:id="@+id/mPullView"
-    android:orientation="vertical"
     android:layout_height="match_parent">
-    <com.youth.banner.Banner
-        android:id="@+id/banner"
+
+
+    <com.ab.view.pullview.AbPullToRefreshView xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="203dp">
-
-    </com.youth.banner.Banner>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="7dp"
-        android:background="#F5F5F5">
-    </View>
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:id="@+id/mPullView"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
 
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_recycle"
+                <cn.dkm.gamehelper.view.MyScrollView
+                    android:id="@+id/sv_scroll"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/rv_recycle"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                        </android.support.v7.widget.RecyclerView>
+
+
+
+                    </LinearLayout>
+
+
+
+
+
+                </cn.dkm.gamehelper.view.MyScrollView>
+
+
+
+
+
+
+
+
+
+
+
+      <!--  <com.youth.banner.Banner
+            android:id="@+id/banner"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="203dp">
 
-        </android.support.v7.widget.RecyclerView>
+        </com.youth.banner.Banner>
 
-    </ScrollView>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="7dp"
+            android:background="#F5F5F5">
+        </View>-->
+    <!--    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <View
+
+
+        </ScrollView>-->
+
+        <!--<View
+            android:layout_width="match_parent"
+            android:layout_height="7dp"
+            android:background="#F5F5F5">
+        </View>-->
+
+
+
+    </com.ab.view.pullview.AbPullToRefreshView>
+
+   <!-- <RelativeLayout
+        android:id="@+id/rl_search"
+        android:gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="7dp"
-        android:background="#F5F5F5">
-    </View>
+        android:background="@drawable/search_bg"
+        android:layout_marginTop="25dp"
+        android:layout_marginRight="64dp"
+        android:layout_marginLeft="64dp"
+        android:layout_height="32dp">
 
+        <ImageView
+            android:id="@+id/iv_search"
+            android:src="@drawable/search"
+            android:layout_width="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_height="wrap_content" />
 
-
-</com.ab.view.pullview.AbPullToRefreshView>
+        <TextView
+            android:hint="搜索游戏"
+            android:layout_toRightOf="@id/iv_search"
+            android:textColor="#999999"
+            android:textSize="15sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>-->
+</android.support.design.widget.CoordinatorLayout>

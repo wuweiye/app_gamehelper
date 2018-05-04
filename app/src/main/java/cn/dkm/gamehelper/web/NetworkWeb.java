@@ -15,6 +15,8 @@ import com.ab.util.AbJsonUtil;
 
 import cn.dkm.gamehelper.model.Article;
 import cn.dkm.gamehelper.model.ArticleListResult;
+import cn.dkm.gamehelper.model.params.Assess;
+import cn.dkm.gamehelper.model.params.AssessResult;
 import cn.dkm.gamehelper.model.params.BaseListResult;
 import cn.dkm.gamehelper.model.params.GameLibrary;
 import cn.dkm.gamehelper.model.params.Login;
@@ -121,6 +123,76 @@ public class NetworkWeb {
 			@Override
 			public void onStart() {
 
+				Log.d(TAG, "onStart: 开始");
+			}
+
+			@Override
+			public void onFinish() {
+
+				Log.d(TAG, "onStart: end");
+			}
+
+			@Override
+			public void onFailure(int statusCode, String s, Throwable throwable) {
+				//失败状态返回
+				Log.d(TAG, "onStart: onFailure");
+				abHttpListener.onFailure(throwable.getMessage());
+			}
+		});
+
+
+
+
+	}
+
+
+	/**
+	 * 枚举请求数据
+	 * @param params
+	 * @param type 枚举
+	 * @param abHttpListener
+	 */
+	public void findQueryResult(AbRequestParams params, final UrlConstant.UrlType type, final AbHttpListener abHttpListener){
+
+	/*	String url = getUrl(type);*/
+
+		//登陆验证
+		String key = SPUtil.getString(mContext,"key","");
+		String userId = SPUtil.getString(mContext,"userId","");
+		String time = SPUtil.getString(mContext, "time", "");
+		params.put("key",key);
+		params.put("userId", userId);
+		params.put("time",time);
+		params.put("uid",userId);
+		params.put("type","app");
+
+		mAbHttpUtil.post(type.getUrl(), params, new AbStringHttpResponseListener() {
+			@Override
+			public void onSuccess(int statusCode, String content) {
+
+				ResultSecond result = new ResultSecond(content);
+				if (result.getResultCode()>=0) {
+
+					switch (type){
+
+						case ASSESS_SUMBIT:
+
+							abHttpListener.onSuccess("success");
+
+							break;
+					}
+
+
+				} else {
+					//将错误信息传递回去
+					abHttpListener.onFailure(result.getResultMessage());
+				}
+
+			}
+
+			@Override
+			public void onStart() {
+
 			}
 
 			@Override
@@ -141,6 +213,7 @@ public class NetworkWeb {
 	}
 
 
+
 	/**
 	 * 枚举请求数据
 	 * @param params
@@ -158,6 +231,7 @@ public class NetworkWeb {
 		params.put("key",key);
 		params.put("userId", userId);
 		params.put("time",time);
+		params.put("uid",userId);
 
 		mAbHttpUtil.post(type.getUrl(), params, new AbStringHttpResponseListener() {
 			@Override
@@ -179,6 +253,13 @@ public class NetworkWeb {
 							List<Login> loginList = loginResult.getRows();
 							abHttpListener.onSuccess(loginList);
 							break;
+						case ASSESS:
+							AssessResult assessResult = (AssessResult) AbJsonUtil.fromJson(content,AssessResult.class);
+							List<Assess> assessList = assessResult.getRows();
+							abHttpListener.onSuccess(assessList);
+
+							break;
+
 					}
 
 
@@ -306,6 +387,13 @@ public class NetworkWeb {
 
 	public void urlPost(AbRequestParams params, String url, final AbHttpListener abHttpListener) {
 
+
+		String key = SPUtil.getString(mContext,"key","");
+		String userId = SPUtil.getString(mContext,"userId","");
+		String time = SPUtil.getString(mContext, "time", "");
+		params.put("key",key);
+		params.put("time",time);
+		params.put("uid",userId);
 
 		mAbHttpUtil.post(url, params, new AbStringHttpResponseListener() {
 			@Override

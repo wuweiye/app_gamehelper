@@ -1,69 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/srl_refresh"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="cn.dkm.gamehelper.gameInfo.activity.GameDetailActivity">
 
+    <include
+        android:id="@+id/game_bar"
+        layout="@layout/game_bar"/>
 
-    <ScrollView
+    <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
+        android:id="@+id/srl_refresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
-
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:orientation="vertical"
-            android:id="@+id/ll_normal"
-            android:layout_height="match_parent">
-
-            <ImageView
-                android:id="@+id/iv_game_icon"
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:adjustViewBounds="true"
-                android:background="@color/blue"
-                />
+            android:layout_height="wrap_content">
 
 
             <LinearLayout
-                android:id="@+id/ll_two"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                app:layout_constraintTop_toBottomOf="@id/iv_game_icon">
+                android:orientation="vertical"
+                android:id="@+id/ll_normal"
+                android:layout_height="match_parent">
 
-                <include layout="@layout/games_item"
-                    android:id="@+id/l_item"></include>
+                <ImageView
+                    android:id="@+id/iv_game_icon"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:adjustViewBounds="true"
+                    android:background="@drawable/bg_bl"
+                    />
 
+
+                <LinearLayout
+                    android:id="@+id/ll_two"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    app:layout_constraintTop_toBottomOf="@id/iv_game_icon">
+
+                    <include layout="@layout/games_item"
+                        android:id="@+id/l_item"></include>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/ll_two">
+                    <include layout="@layout/games_collection"
+                        android:id="@+id/l_radio"></include>
+                </LinearLayout>
+
+
+                <FrameLayout
+                    android:id="@+id/content_frame2"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                </FrameLayout>
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_marginTop="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/ll_two">
-                <include layout="@layout/games_collection"
-                    android:id="@+id/l_radio"></include>
-            </LinearLayout>
+        </ScrollView>
 
 
-            <FrameLayout
-                android:id="@+id/content_frame2"
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-            </FrameLayout>
-        </LinearLayout>
-    </ScrollView>
+    </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
 
 
 
 
 
 
-</com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
+
+
+
+
+
+</LinearLayout>

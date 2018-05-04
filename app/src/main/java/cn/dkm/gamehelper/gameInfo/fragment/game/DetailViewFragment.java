@@ -100,17 +100,23 @@ public class DetailViewFragment extends BaseFragment {
 
         List<String> list = new ArrayList<>();
 
-        Log.d(TAG, "initDate: "  + mGameDetailParams.getUrlPaths());
-        if(! mGameDetailParams.getUrlPaths().equals("none") ){
-            String[] urlPaths = mGameDetailParams.getUrlPaths().split("\\|");
+        if(mGameDetailParams.getUrlPaths()!= null){
+            if(! mGameDetailParams.getUrlPaths().equals("none") ){
+                String[] urlPaths = mGameDetailParams.getUrlPaths().split("\\|");
 
-            for(String urlPath : urlPaths){
+                for(String urlPath : urlPaths){
 
-                list.add(UrlConstant.BASE + urlPath);
+                    list.add(UrlConstant.BASE + urlPath);
+                }
+            }else {
+                list.add("http://static.biligame.com/blhx/gw/pc/img/pic-3.jpg?v=bd967624.jpg");
+                list.add("http://static.biligame.com/blhx/gw/pc/img/pic-2.jpg?v=5d90b549.jpg");
             }
         }else {
-            list.add("http://169.254.187.73:8866//game/image/show/20180413183240.jpg");
+            list.add("http://static.biligame.com/blhx/gw/pc/img/pic-3.jpg?v=bd967624.jpg");
+            list.add("http://static.biligame.com/blhx/gw/pc/img/pic-2.jpg?v=5d90b549.jpg");
         }
+
 
 
 
@@ -132,9 +138,12 @@ public class DetailViewFragment extends BaseFragment {
 
         List<String> strings = new ArrayList<>();
 
-        for(int i = 0;i < mGameDetailParams.getLabels().size(); i++){
+        if( mGameDetailParams.getLabels() != null){
+            for(int i = 0;i < mGameDetailParams.getLabels().size(); i++){
 
-            strings.add(mGameDetailParams.getLabels().get(i));
+                strings.add(mGameDetailParams.getLabels().get(i));
+
+            }
 
         }
 

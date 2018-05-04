@@ -28,8 +28,10 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.dkm.gamehelper.gameInfo.fragment.FirstFragment;
 import cn.dkm.gamehelper.gameInfo.fragment.MainFragment;
 import cn.dkm.gamehelper.gameInfo.fragment.UserFragment;
+import cn.dkm.gamehelper.gameInfo.fragment.game.AssessViewFragment;
 import cn.dkm.gamehelper.gameInfo.fragment.game.DetailViewFragment;
 import cn.dkm.gamehelper.gameInfo.holder.UserHolder;
 import cn.dkm.gamehelper.user.dao.UserDao;
@@ -43,6 +45,7 @@ import cn.dkm.gamehelper.model.User;
 import cn.dkm.gamehelper.model.params.GameLibrary;
 import cn.dkm.gamehelper.utils.CastUtils;
 import cn.dkm.gamehelper.utils.SPUtil;
+import cn.dkm.gamehelper.web.UrlConstant;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
@@ -174,7 +177,7 @@ public class MainActivity extends AbActivity implements View.OnClickListener{
                         userHolder.title.setText("游戏列表");
                     }else if(position == 2){
 
-                        userHolder.title.setText("----1--");
+                        userHolder.title.setText("游戏");
                     }else if (position == 3){
 
                         userHolder.title.setText("--2--");
@@ -304,21 +307,25 @@ public class MainActivity extends AbActivity implements View.OnClickListener{
         super.onActivityResult(requestCode, resultCode, intent);
         AbLogUtil.d(this, requestCode + "--" + resultCode);
 
-        if(requestCode == 1001){
+        switch (resultCode){
+            case UrlConstant.LOGIN_SUCCESS:
 
+                updateMenu();
 
+                break;
         }
+
         if (resultCode != RESULT_OK) {
             return;
         }
 
         //刷新
-        updateMenu();
 
-        switch (requestCode) {
+
+        /*switch (requestCode) {
             case LOGIN_CODE :
                 //登录成功后启动IM服务
-                /*startIMService();*/
+                *//*startIMService();*//*
                 break;
             case CHAT_CODE :
                 //进入会话窗口
@@ -327,11 +334,11 @@ public class MainActivity extends AbActivity implements View.OnClickListener{
                 break;
             case FRIEND_CODE :
                 //登录成功后启动IM服务
-                /*startIMService();*/
+                *//*startIMService();*//*
                 //进入联系人
                 toContact();
                 break;
-        }
+        }*/
 
     }
 
@@ -407,6 +414,8 @@ public class MainActivity extends AbActivity implements View.OnClickListener{
 
 
 
+
+
     @Override
     public void onClick(View view) {
 
@@ -433,6 +442,8 @@ public class MainActivity extends AbActivity implements View.OnClickListener{
         public void handleMessage(Message msg) {
 
             switch (msg.what){
+
+
                 case 1 :
                     Bundle bundle =  msg.getData();
                     List<GameLibrary> libraries = CastUtils.cost(bundle.getCharSequenceArrayList("libraries"));
@@ -445,6 +456,7 @@ public class MainActivity extends AbActivity implements View.OnClickListener{
 
 
                     break;
+
             }
 
             super.handleMessage(msg);

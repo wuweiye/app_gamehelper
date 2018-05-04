@@ -43,7 +43,7 @@
         android:layout_toLeftOf="@id/iv_item_first"
         android:src="@mipmap/ic_launcher"
         android:layout_marginRight="10dp"
-        android:layout_width="40dp"
-        android:layout_height="40dp" />
+        android:layout_width="30dp"
+        android:layout_height="30dp" />
 
 </RelativeLayout>

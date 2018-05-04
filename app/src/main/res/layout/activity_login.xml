@@ -23,7 +23,7 @@
 
         <TextView
             android:gravity="center"
-            android:text="新用户注册"
+            android:text="用户登陆"
             android:layout_marginRight="80dp"
             android:layout_marginLeft="80dp"
             android:layout_width="match_parent"

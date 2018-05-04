@@ -3,6 +3,7 @@ package cn.dkm.gamehelper.web.params;
 import android.util.Log;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import lombok.Data;
@@ -18,6 +19,15 @@ import static com.ab.network.toolbox.VolleyLog.TAG;
 @EqualsAndHashCode(callSuper=false)
 public class GameDetailParams extends BaseParams{
 
+
+    private Long assessId;
+
+    private Long uid;
+
+    private String assessContent;
+
+    private int star;
+
     private String gameName;
 
     private String developStore;
@@ -26,9 +36,9 @@ public class GameDetailParams extends BaseParams{
 
     private String urlPath;
 
-    private String urlPaths;
+    private String urlPaths = "none";
 
-    private List<String> labels;
+    private List<String> labels = new ArrayList<>();
 
     private String desc;
 

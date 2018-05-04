@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:gravity="center_vertical"
+    android:layout_height="44dp">
+
+    <ImageView
+        android:id="@+id/iv_fire"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:src="@drawable/notice"
+        />
+
+    <TextView
+        android:id="@+id/tv_bulletin"
+        android:text="资讯公告"
+        android:layout_marginLeft="5dp"
+        android:textColor="#ff4646"
+        android:textSize="12sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <com.gongwen.marqueen.SimpleMarqueeView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/smv_marqueeView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:smvTextColor="#333333"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        app:smvTextSize="15sp"></com.gongwen.marqueen.SimpleMarqueeView>
+
+</LinearLayout>
