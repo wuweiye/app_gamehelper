@@ -8,11 +8,15 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 
 import cn.dkm.gamehelper.R;
 import cn.dkm.gamehelper.gameInfo.listener.OnItemClickListener;
 import cn.dkm.gamehelper.model.params.GameLibrary;
+import cn.dkm.gamehelper.model.params.RecommendGameLibrary;
+import cn.dkm.gamehelper.web.UrlConstant;
 
 /**
  * Created by Administrator on 2017/12/26.
@@ -21,12 +25,12 @@ import cn.dkm.gamehelper.model.params.GameLibrary;
 public class MainFragmentAdapter extends RecyclerView.Adapter<MainFragmentAdapter.MainHolder> {
 
     private final Context mContext;
-    private List<String> gameTypeNames ;
+    private List<RecommendGameLibrary> recommendGameLibraries;
     private OnItemClickListener mOnItemClickListener;//声明接口
 
-    public MainFragmentAdapter(Context mContext, List<String> gameTypeNames) {
+    public MainFragmentAdapter(Context mContext, List<RecommendGameLibrary> recommendGameLibraries) {
         this.mContext = mContext;
-        this.gameTypeNames = gameTypeNames;
+        this.recommendGameLibraries = recommendGameLibraries;
     }
 
     @Override
@@ -40,8 +44,14 @@ public class MainFragmentAdapter extends RecyclerView.Adapter<MainFragmentAdapte
     @Override
     public void onBindViewHolder(final MainHolder holder, int position) {
 
-        /*String name = gameTypeNames.get(position);
-        holder.tv_name.setText(name);*/
+
+
+        RecommendGameLibrary library = recommendGameLibraries.get(position);
+        Glide.with(mContext).load(UrlConstant.BASE + recommendGameLibraries.get(position).getRecommendImageUrl()).error(R.drawable.bg_bl).into(holder.background);
+        holder.gameAssess.setText(library.getAssessCount() + "条评价");
+        holder.gameRecommendContent.setText(library.getRecommendContent());
+        holder.gameName.setText(library.getName());
+        holder.gameAssessScore.setText(library.getAssess());
 
         if(mOnItemClickListener != null){
             holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -56,17 +66,27 @@ public class MainFragmentAdapter extends RecyclerView.Adapter<MainFragmentAdapte
 
     @Override
     public int getItemCount() {
-        return gameTypeNames.size();
+        return recommendGameLibraries.size();
     }
 
 
     class MainHolder extends RecyclerView.ViewHolder{
 
-        private TextView tv_name;
+        private ImageView background;
+        private TextView gameName;
+        private TextView gameAssess;
+        private TextView gameAssessScore;
+        private TextView gameRecommendContent;
 
         public MainHolder(View itemView) {
             super(itemView);
-            tv_name =  itemView.findViewById(R.id.tv_name);
+            background =  itemView.findViewById(R.id.iv_background);
+            gameName = itemView.findViewById(R.id.tv_name);
+            gameAssess = itemView.findViewById(R.id.tv_assess_count);
+            gameAssessScore = itemView.findViewById(R.id.tv_assess_star);
+            gameRecommendContent = itemView.findViewById(R.id.tv_assess);
+
+
 
         }
     }

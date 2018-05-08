@@ -125,9 +125,10 @@ public class AssessViewFragment extends BaseFragment {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
 
+                Log.d(TAG, "onRatingChanged: " + mGameDetailParams.getId());
                 Intent intent = new Intent(getContext(), AssessActivity.class);
                 intent.putExtra("star", rating);
-                intent.putExtra("gid", mGameDetailParams.getId());
+                intent.putExtra("gid", mGameDetailParams.getId() + "");
                 intent.putExtra("assessId","none");
                 startActivityForResult(intent,1002);
             }
@@ -187,7 +188,7 @@ public class AssessViewFragment extends BaseFragment {
         mGameAssessScore.setText(mGameDetailParams.getAccessScore());
 
         AbRequestParams params = new AbRequestParams();
-        params.put("gid",mGameDetailParams.getId());
+        params.put("gid",mGameDetailParams.getId() +"");
         params.put("page","1");
         params.put("rows","10");
 

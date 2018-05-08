@@ -2,12 +2,12 @@ package cn.dkm.gamehelper.gameInfo.fragment;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.ab.http.AbHttpListener;
 import com.ab.http.AbRequestParams;
@@ -15,17 +15,15 @@ import com.ab.task.AbTask;
 import com.ab.task.AbTaskItem;
 import com.ab.task.AbTaskListener;
 import com.ab.util.AbDialogUtil;
-import java.util.ArrayList;
+
 import java.util.List;
 
 import cn.dkm.gamehelper.R;
 import cn.dkm.gamehelper.base.BaseFragment;
 import cn.dkm.gamehelper.gameInfo.activity.GameDetailActivity;
-import cn.dkm.gamehelper.gameInfo.adapter.GamesFragmentAdapter;
 import cn.dkm.gamehelper.gameInfo.adapter.MainFragmentAdapter;
 import cn.dkm.gamehelper.gameInfo.listener.OnItemClickListener;
-import cn.dkm.gamehelper.model.params.BaseListResult;
-import cn.dkm.gamehelper.model.params.GameLibrary;
+import cn.dkm.gamehelper.model.params.RecommendGameLibrary;
 import cn.dkm.gamehelper.view.MyScrollView;
 import cn.dkm.gamehelper.web.NetworkWeb;
 import cn.dkm.gamehelper.web.UrlConstant;
@@ -81,55 +79,20 @@ public class MainFragment extends BaseFragment {
         super.initDate();
         mUserHolder.title.setText("首页");
         mUserHolder.itemSecond.setImageResource(R.drawable.search);
-        initBanner();
+
         initListener();
-        //getDataFromNet();
 
-        List<String> strings = new ArrayList<>();
-        strings.add("策略1");
-        strings.add("策略2");
-        strings.add("策略3");
-        strings.add("策略4");
-        strings.add("策略5");
-        strings.add("策略6");
-        strings.add("策略7");
-
-        processData(strings);
+        getDataFromNet();
 
     }
 
-    private void initBanner() {
 
-
-
-
-
-
-
-    }
 
 
     private void initListener() {
 
 
-        /*mScrollView.setOnScrollListener(new MyScrollView.OnScrollListener() {
-            @Override
-            public void onScrollChanged(MyScrollView scrollView, int x, int y, int oldx, int oldy) {
 
-                Log.d("onScrollChanged","onScrollChanged");
-
-                if (y <= 650){
-                    if (y   >=300){
-                        mSearch.setClickable(false);
-                    }else {
-                        mSearch.setClickable(true);
-                    }
-                    float v = 1 - (float) y / 650;
-
-                    mSearch.setAlpha(v);
-                }
-            }
-        });*/
 
     }
 
@@ -139,35 +102,28 @@ public class MainFragment extends BaseFragment {
         AbRequestParams params = new AbRequestParams();
 
         NetworkWeb networkWeb = NetworkWeb.newInstance(getContext());
-        params.put("status", "valid");
+        params.put("isRecommend", "1");
         params.put("page", "1");
         params.put("rows", "10");
 
-
-        networkWeb.findQueryList(params, UrlConstant.GAMES, new AbHttpListener() {
-            @Override
-            public void onFailure(String content) {
-
-            }
+        networkWeb.findQueryList(params, UrlConstant.UrlType.RECOMMEND_GAME, new AbHttpListener() {
 
             @Override
             public void onSuccess(List<?> list) {
-
-                List<String> libraries = (List<String>) list;
+                List<RecommendGameLibrary> libraries = (List<RecommendGameLibrary>) list;
                 processData(libraries);
-
-
             }
 
             @Override
-            public void onSuccess(String content) {
+            public void onFailure(String s) {
 
             }
         });
 
+
     }
 
-    private void processData(final List<String> libraries) {
+    private void processData(final List<RecommendGameLibrary> libraries) {
 
         if (libraries != null) {
 
@@ -180,7 +136,13 @@ public class MainFragment extends BaseFragment {
                 @Override
                 public void onItemClick(View view, int position) {
 
-                    Toast.makeText(mContext,"--11---",Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent();
+                    intent.setClass(mContext, GameDetailActivity.class);
+                    intent.putExtra("gid",libraries.get(position).getGid());
+                    intent.putExtra("name",libraries.get(position).getName());
+                    intent.putExtra("logoUrl", libraries.get(position).getLogoUrl());
+
+                    startActivity(intent);
 
                 }
             });
@@ -223,17 +185,6 @@ public class MainFragment extends BaseFragment {
     }
 
 
-
-/*
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        MainActivity  mainActivity = (MainActivity) context;
-        this.mHandler = mainActivity.getHandler();
-        Log.d(TAG, "onAttach: mHandler 初始化ok");
-    }
-
-*/
 
 
 }

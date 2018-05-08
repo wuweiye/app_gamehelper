@@ -3,12 +3,10 @@ package cn.dkm.gamehelper.gameInfo.activity;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,28 +20,15 @@ import com.ab.view.titlebar.AbTitleBar;
 import com.bumptech.glide.Glide;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
-import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import cn.dkm.gamehelper.R;
-import cn.dkm.gamehelper.gameInfo.fragment.GamesFragment;
-import cn.dkm.gamehelper.gameInfo.fragment.MessageFragment;
-import cn.dkm.gamehelper.gameInfo.fragment.MoodNotesFragment;
-import cn.dkm.gamehelper.gameInfo.fragment.UserFragment;
 import cn.dkm.gamehelper.gameInfo.fragment.game.AssessViewFragment;
 import cn.dkm.gamehelper.gameInfo.fragment.game.DetailViewFragment;
-import cn.dkm.gamehelper.global.Constant;
 import cn.dkm.gamehelper.listener.FileResponseListener;
-import cn.dkm.gamehelper.model.params.BaseListResult;
-import cn.dkm.gamehelper.model.params.GameLibrary;
 import cn.dkm.gamehelper.web.NetworkWeb;
 import cn.dkm.gamehelper.web.UrlConstant;
 import cn.dkm.gamehelper.web.params.GameDetailParams;
-import cn.dkm.gamehelper.web.result.GameDetailResult;
 
 public class GameDetailActivity extends AbActivity {
     private final static String TAG = "GameDetailActivity";
@@ -139,6 +124,7 @@ public class GameDetailActivity extends AbActivity {
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         String gid = bundle.getString("gid");
+        Log.d(TAG, "initDate: "  +gid);
         String name = bundle.getString("name");
         String logoUrl = bundle.getString("logoUrl");
         mTvTitle.setText(name);
@@ -167,8 +153,10 @@ public class GameDetailActivity extends AbActivity {
 
             @Override
             public void onSuccess(String content) {
+                Log.d(TAG, "onSuccess: "  + content);
 
                 GameDetailParams gameDetailParams = (GameDetailParams) AbJsonUtil.fromJson(content,GameDetailParams.class);
+                Log.d(TAG, "onSuccess: "  + gameDetailParams.getId()  +" status" + gameDetailParams.getStatus());
 
                 freshenView(gameDetailParams);
             }

@@ -17,8 +17,20 @@ import static com.ab.network.toolbox.VolleyLog.TAG;
 
 @Data
 @EqualsAndHashCode(callSuper=false)
-public class GameDetailParams extends BaseParams{
+public class GameDetailParams{
 
+    private int id;
+
+    private  String status;
+
+    private String createTime ;
+
+    private String createBy;
+
+    private String updateTime;
+
+    private String updateBy;
+    //--------------
 
     private Long assessId;
 
@@ -55,8 +67,6 @@ public class GameDetailParams extends BaseParams{
     private int total;
 
     private int scale;
-
-
 
 
     public int getTotalAll(){

@@ -1,7 +1,6 @@
 package cn.dkm.gamehelper.gameInfo.fragment;
 
 
-import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,7 +8,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.ab.fragment.AbDialogFragment;
 import com.ab.fragment.AbLoadDialogFragment;
 import com.ab.http.AbHttpListener;
 import com.ab.http.AbRequestParams;
@@ -21,13 +19,12 @@ import com.ab.util.AbJsonUtil;
 
 import java.util.List;
 
-import cn.dkm.gamehelper.MainActivity;
 import cn.dkm.gamehelper.R;
 import cn.dkm.gamehelper.gameInfo.activity.GameDetailActivity;
 import cn.dkm.gamehelper.gameInfo.adapter.GamesFragmentAdapter;
 import cn.dkm.gamehelper.base.BaseFragment;
 import cn.dkm.gamehelper.gameInfo.listener.OnItemClickListener;
-import cn.dkm.gamehelper.model.params.BaseListResult;
+import cn.dkm.gamehelper.model.params.result.BaseListResult;
 import cn.dkm.gamehelper.model.params.GameLibrary;
 import cn.dkm.gamehelper.web.NetworkWeb;
 import cn.dkm.gamehelper.web.UrlConstant;

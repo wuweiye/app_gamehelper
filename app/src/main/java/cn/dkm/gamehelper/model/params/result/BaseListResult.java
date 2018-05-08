@@ -1,9 +1,10 @@
-package cn.dkm.gamehelper.model.params;
+package cn.dkm.gamehelper.model.params.result;
 
 import com.ab.model.AbResult;
 
 import java.util.List;
 
+import cn.dkm.gamehelper.model.params.GameLibrary;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

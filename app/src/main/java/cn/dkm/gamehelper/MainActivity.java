@@ -33,6 +33,7 @@ import cn.dkm.gamehelper.gameInfo.fragment.MainFragment;
 import cn.dkm.gamehelper.gameInfo.fragment.UserFragment;
 import cn.dkm.gamehelper.gameInfo.fragment.game.AssessViewFragment;
 import cn.dkm.gamehelper.gameInfo.fragment.game.DetailViewFragment;
+import cn.dkm.gamehelper.gameInfo.fragment.game.ForumsViewFragment;
 import cn.dkm.gamehelper.gameInfo.holder.UserHolder;
 import cn.dkm.gamehelper.user.dao.UserDao;
 import cn.dkm.gamehelper.gameInfo.fragment.GamesFragment;
@@ -46,6 +47,7 @@ import cn.dkm.gamehelper.model.params.GameLibrary;
 import cn.dkm.gamehelper.utils.CastUtils;
 import cn.dkm.gamehelper.utils.SPUtil;
 import cn.dkm.gamehelper.web.UrlConstant;
+import cn.dkm.gamehelper.web.params.GameDetailParams;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
@@ -136,7 +138,8 @@ public class MainActivity extends AbActivity implements View.OnClickListener{
         fragments = new ArrayList<>();
         fragments.add(new MainFragment());
         fragments.add(new GamesFragment());
-        fragments.add(new MoodNotesFragment());
+        //fragments.add(new MoodNotesFragment());
+        fragments.add(new ForumsViewFragment(new GameDetailParams()));
         fragments.add(new MessageFragment());
         fragments.add(new UserFragment());
     }

@@ -12,13 +12,11 @@ public class UrlConstant {
 
     public static final int ASSESS_SUCCESS = 1002;
 
-    public static final String BASE = "http://dingkunming.cn/";
+    //public static final String BASE = "http://dingkunming.cn/";
 
     //public static final String BASE = "http://169.254.187.73:8866/";
 
-    /*public static final String BASE = "http://192.168.1.107:8866/app/";*/
-
-
+    public static final String BASE = "http://192.168.1.104:8866/";
 
     public static final String GAMES = "games";
 
@@ -55,7 +53,11 @@ public class UrlConstant {
 
     public enum UrlType{
         GAMES("games",BASE +"app/user/manage/login"),
+        GAMES_DETAIL("games_detail",BASE +"app/game/get/detail"),
         ARTICLE("article", BASE + "app/manage/get/games"),
+        FORUMS("forums", BASE + "app/center/forums/get/forums"),
+        PASTE("paste",BASE + "app/center/paste/getList"),
+        RECOMMEND_GAME("article", BASE + "app/manage/get/recommend"),
         ASSESS("assess",BASE + "game/assess/query"),
         ASSESS_SUMBIT("assess_sumbit", BASE + "/game/assess/add"),
         LOGIN("login",BASE + "app/user/manage/login");

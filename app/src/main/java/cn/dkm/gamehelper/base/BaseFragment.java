@@ -2,10 +2,8 @@ package cn.dkm.gamehelper.base;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,10 +18,8 @@ import java.util.List;
 import cn.dkm.gamehelper.MainActivity;
 import cn.dkm.gamehelper.R;
 import cn.dkm.gamehelper.gameInfo.holder.UserHolder;
-import cn.dkm.gamehelper.model.params.BaseListResult;
-import cn.dkm.gamehelper.model.params.GameLibrary;
+import cn.dkm.gamehelper.model.params.result.BaseListResult;
 import cn.dkm.gamehelper.web.NetworkWeb;
-import cn.dkm.gamehelper.web.UrlConstant;
 
 /**
  * Created by Administrator on 2017/2/16.

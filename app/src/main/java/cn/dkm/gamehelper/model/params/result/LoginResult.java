@@ -1,9 +1,10 @@
-package cn.dkm.gamehelper.model.params;
+package cn.dkm.gamehelper.model.params.result;
 
 import com.ab.model.AbResult;
 
 import java.util.List;
 
+import cn.dkm.gamehelper.model.params.Login;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -14,6 +15,6 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class AssessResult extends AbResult {
-    private List<Assess> rows;
+public class LoginResult extends AbResult {
+    private List<Login> rows;
 }

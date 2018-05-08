@@ -16,17 +16,18 @@ import com.ab.util.AbJsonUtil;
 import cn.dkm.gamehelper.model.Article;
 import cn.dkm.gamehelper.model.ArticleListResult;
 import cn.dkm.gamehelper.model.params.Assess;
-import cn.dkm.gamehelper.model.params.AssessResult;
-import cn.dkm.gamehelper.model.params.BaseListResult;
+import cn.dkm.gamehelper.model.params.Paste;
+import cn.dkm.gamehelper.model.params.result.AssessResult;
+import cn.dkm.gamehelper.model.params.result.BaseListResult;
 import cn.dkm.gamehelper.model.params.GameLibrary;
 import cn.dkm.gamehelper.model.params.Login;
-import cn.dkm.gamehelper.model.params.LoginResult;
+import cn.dkm.gamehelper.model.params.result.LoginResult;
+import cn.dkm.gamehelper.model.params.RecommendGameLibrary;
+import cn.dkm.gamehelper.model.params.result.PasteResult;
+import cn.dkm.gamehelper.model.params.result.RecommendGameResult;
 import cn.dkm.gamehelper.utils.SPUtil;
-import cn.dkm.gamehelper.web.params.GameArticleParams;
 
 import static android.content.ContentValues.TAG;
-import static cn.dkm.gamehelper.web.UrlConstant.UrlType.GAMES;
-import static cn.dkm.gamehelper.web.UrlConstant.UrlType.LOGIN;
 
 public class NetworkWeb {
 
@@ -240,6 +241,7 @@ public class NetworkWeb {
 				Result result = new Result(content);
 				if (result.getErrorCode()>=0) {
 
+					Log.d(TAG, "content: "  +content);
 					switch (type){
 						case GAMES:
 
@@ -258,6 +260,21 @@ public class NetworkWeb {
 							List<Assess> assessList = assessResult.getRows();
 							abHttpListener.onSuccess(assessList);
 
+							break;
+						case RECOMMEND_GAME:
+							RecommendGameResult recommendGameResult = (RecommendGameResult) AbJsonUtil.fromJson(content,RecommendGameResult.class);
+							List<RecommendGameLibrary> recommendGameLibraries = recommendGameResult.getRows();
+							abHttpListener.onSuccess(recommendGameLibraries);
+							break;
+
+						case GAMES_DETAIL:
+
+							break;
+						case PASTE:
+
+							PasteResult pasteResult = (PasteResult) AbJsonUtil.fromJson(content, PasteResult.class);
+							List<Paste> pastes = pasteResult.getRows();
+							abHttpListener.onSuccess(pastes);
 							break;
 
 					}
